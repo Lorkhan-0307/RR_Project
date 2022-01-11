@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
+    - Assets/Scenes/Stage001.unity
+    - Assets/Scripts/Camera.meta
+    - Assets/Scripts/Camera/CameraFollow2D.cs
+    - Assets/Scripts/Camera/CameraFollow2D.cs.meta
     - 
-    m_Values: 01
+    m_Values: 0000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 
