@@ -15353,6 +15353,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7677999341370622614, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
+      propertyPath: m_SortingOrder
+      value: -7
+      objectReference: {fileID: 0}
     - target: {fileID: 7677999342037140776, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
       propertyPath: target
       value: 
@@ -15412,6 +15416,10 @@ PrefabInstance:
     - target: {fileID: 7677999342037140783, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
       propertyPath: m_Name
       value: Main Camera (Night)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677999342236498967, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
