@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/New Game.unity
     guid: 3404622acf752ae4baacbd059ccfe0ea
   - enabled: 1
-    path: Assets/Scenes/Continue Game.unity
-    guid: 6cac4b00364f9e141b768f248784bf58
+    path: Assets/Scenes/Room.unity
+    guid: 670c9297536edba4dbbeb3496c146a73
   - enabled: 1
     path: Assets/Scenes/Stage1.unity
     guid: ed05ee304e20a2b449c0d0ff287ce95e
@@ -23,7 +23,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage3.unity
     guid: 5b0efdc6b2c53144ebc694c8d2ee6558
-  - enabled: 1
-    path: Assets/Scenes/Stage4.unity
-    guid: df0d5d204ee286a4abd67345fba2043d
   m_configObjects: {}

@@ -9,6 +9,8 @@ public class StageSelection : MonoBehaviour
     [SerializeField]
     private bool unlocked;
     public Image unlockImage;
+    public bool selected;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +37,12 @@ public class StageSelection : MonoBehaviour
     }
 
     //스테이지 클릭 시 stageName에 해당하는 stage로 씬 전환
-    public void OnClickStage(string stageName)
+    public void OnClickStage(int stageName)
     {
         if (unlocked)
         {
-            SceneManager.LoadScene(stageName);
+            FindObjectOfType<Door>().stageNum = stageName;
+            selected = true;
         }
     }
 }

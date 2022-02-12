@@ -12,7 +12,8 @@ public class MainMenu : MonoBehaviour
     public GameObject AudioWindow;
     public GameObject StageWindow;
 
-    private void Start()
+
+    private void Reset()
     {
         //시작 시 모든 창 꺼놓기(Default)
         SettingWindow.SetActive(false);
@@ -21,6 +22,10 @@ public class MainMenu : MonoBehaviour
         GraphicWindow.SetActive(false);
         AudioWindow.SetActive(false);
         StageWindow.SetActive(false);
+    }
+    private void Start()
+    {
+
     }
 
     //Start 버튼 눌렀을 때 실행

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3360782269421653676}
   - component: {fileID: 1094345124367889903}
   - component: {fileID: 8373820813367455480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MCMovementTestObject
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3c265f680065edd44afe0e3bb03cbde8, type: 3}
+  m_Sprite: {fileID: 8419796051782404660, guid: db5a82769d1e46a408bfe4a0970ceab4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,18 +128,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04808484, y: 0.00093987584}
+  m_Offset: {x: 0.04808484, y: 0.003055364}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.65, y: 1.39}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 3.125, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.322872, y: 1.3786628}
+  m_Size: {x: 0.322872, y: 0.96825343}
   m_EdgeRadius: 0
 --- !u!114 &7842056108830093217
 MonoBehaviour:
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpPower: 1000
+  interactIcon: {fileID: 0}
 --- !u!95 &3360782269421653676
 Animator:
   serializedVersion: 3
