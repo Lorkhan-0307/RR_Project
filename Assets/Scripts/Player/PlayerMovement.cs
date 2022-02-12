@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform startingPoint;
 
 
+
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
@@ -29,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject interactIcon;
     private Vector2 boxSize = new Vector2(0.1f, 1f);
+
+    private float m_disableMovementTimer = 0.0f;
+    private float inputX = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+
+        // Decrease timer that disables input movement. Used when attacking
+        m_disableMovementTimer -= Time.deltaTime;
+
         if (playerInput.attack)
         {
             if (!isRolling)
@@ -75,8 +83,9 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (!isRolling)
+        if (!isRolling && m_disableMovementTimer < 0.0f)
         {
+            inputX = playerInput.move;
             Move();
         }
 
@@ -133,8 +142,8 @@ public class PlayerMovement : MonoBehaviour
         //playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
         playerRigidbody.position += moveDistance;
         */
-        playerRigidbody.velocity = new Vector2(playerInput.move * moveSpeed, playerRigidbody.velocity.y);
-        animator.SetFloat("Walkspeed", Mathf.Abs(playerInput.move * moveSpeed));
+        playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
+        animator.SetFloat("Walkspeed", Mathf.Abs(inputX  * moveSpeed));
     }
     /*
     private void Jump()
@@ -148,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
     private void Attack()
     {
         animator.SetTrigger("attack");
+        m_disableMovementTimer = 0.35f;
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         
