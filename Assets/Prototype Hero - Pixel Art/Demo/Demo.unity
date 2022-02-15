@@ -1690,6 +1690,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrototypeHero
       objectReference: {fileID: 0}
+    - target: {fileID: 5779919143759674799, guid: e481822248898d04e9808a3d3ca78e5a, type: 3}
+      propertyPath: m_runSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7216317338779392757, guid: e481822248898d04e9808a3d3ca78e5a, type: 3}
       propertyPath: m_RootOrder
       value: 1

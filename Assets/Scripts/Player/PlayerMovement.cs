@@ -46,7 +46,28 @@ public class PlayerMovement : MonoBehaviour
     {
 
         // Decrease timer that disables input movement. Used when attacking
-        m_disableMovementTimer -= Time.deltaTime;
+        //m_disableMovementTimer -= Time.deltaTime;
+
+        // Swap dirction and Sprite by move direction
+        /*else
+        {
+            if (playerInput.move > 0)
+            {
+                m_SR.flipX = false;
+                m_facingDirection = 1;
+            }
+            else if (playerInput.move < 0)
+            {
+                m_SR.flipX = true;
+                m_facingDirection = -1;
+            }
+        }
+
+        if (!isRolling && m_disableMovementTimer < 0.0f)
+        {
+            inputX = playerInput.move;
+            Move();
+        }*/
 
         if (playerInput.attack)
         {
@@ -55,41 +76,8 @@ public class PlayerMovement : MonoBehaviour
                 Attack();
             }
         }
-        
-        if (playerInput.interact)
-        {
-            CheckInteraction();
-        }
 
-        // Swap dirction and Sprite by move direction
-        if (CanMove())
-        {
-            if(playerInput.move>0)
-            {
-                m_SR.flipX = false;
-                m_facingDirection = 1;
-            }
-            else if(playerInput.move<0)
-            {
-                m_SR.flipX = true;
-                m_facingDirection = -1;
-            }
-        }
-
-
-        //움직일 수 있는지 없는지 확인
-        if (!CanMove())
-        {
-            return;
-        }
-
-        if (!isRolling && m_disableMovementTimer < 0.0f)
-        {
-            inputX = playerInput.move;
-            Move();
-        }
-
-        //점프 중에는 점프 못함.
+        //점프 or 구르기 중에는 점프 못함.
         if (!isJumping && playerInput.jump > 0 && !isRolling)
         {
             Jump();
@@ -101,12 +89,13 @@ public class PlayerMovement : MonoBehaviour
             Roll();
         }
 
-        
+        //상호작용
+        if (playerInput.interact)
+        {
+            CheckInteraction();
+        }
 
     }
-
-
-    /*
     private void FixedUpdate()
     {
         //움직일 수 있는지 없는지 확인
@@ -115,25 +104,28 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (!isRolling)
+        else
         {
-            Move();
-        }
-        
-        //점프 중에는 점프 못함.
-        if (!isJumping && playerInput.jump > 0 && !isRolling)
-        {
-            Jump();
-        }
-
-        if(!isRolling &&playerInput.roll == true)
-        {
-            isRolling = true;
-            Roll();
-            Debug.Log("ROLLING");
+            //방향 전환 시 캐릭터 flip
+            if (playerInput.move > 0)
+            {
+                m_SR.flipX = false;
+                m_facingDirection = 1;
+            }
+            else if (playerInput.move < 0)
+            {
+                m_SR.flipX = true;
+                m_facingDirection = -1;
+            }
+            //구르고 있지 않을 때 움직일 수 있음
+            if (!isRolling)
+            {
+                inputX = playerInput.move;
+                Move();
+            }
         }
     }
-    */
+
     private void Move()
     {
 
@@ -143,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody.position += moveDistance;
         */
         playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
-        animator.SetFloat("Walkspeed", Mathf.Abs(inputX  * moveSpeed));
+        animator.SetFloat("Walkspeed", Mathf.Abs(inputX * moveSpeed));
     }
     /*
     private void Jump()
@@ -160,13 +152,13 @@ public class PlayerMovement : MonoBehaviour
         m_disableMovementTimer = 0.35f;
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-        
-        foreach(Collider2D enemy in hitEnemies)
+
+        foreach (Collider2D enemy in hitEnemies)
         {
             enemy.GetComponent<EnemyHealth>().E_TakeDamage(meleeAttackDamage);
         }
-    
-    
+
+
     }
 
     private void OnDrawGizmos()
@@ -180,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);
-        
+
     }
 
     private void Roll()
@@ -193,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isRolling = false;
     }
-    
+
     private bool CanMove()
     {
         bool can = true;
@@ -207,30 +199,28 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        
-        return can;
-    }    
 
-   
+        return can;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
             isJumping = false;
-            
+
         }
     }
-    
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
             isJumping = true;
-            
+
         }
     }
-    
+
     //상호작용 아이콘 On
     public void OpenInteractableIcon()
     {
@@ -249,9 +239,9 @@ public class PlayerMovement : MonoBehaviour
         //충돌체를 전부 찾음
         RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, boxSize, 0, Vector2.zero);
 
-        if(hits.Length>0)
+        if (hits.Length > 0)
         {
-            foreach(RaycastHit2D rc in hits)
+            foreach (RaycastHit2D rc in hits)
             {
                 if (rc.transform.GetComponent<Interactable>())
                 {

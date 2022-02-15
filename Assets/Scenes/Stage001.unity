@@ -15701,6 +15701,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3652574460308204367, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652574460308204367, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -15790,6 +15794,10 @@ PrefabInstance:
       objectReference: {fileID: 833621320}
     - target: {fileID: 3989368269514458174, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
       propertyPath: jumpPower
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3989368269514458174, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
+      propertyPath: moveSpeed
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3989368269514458174, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
