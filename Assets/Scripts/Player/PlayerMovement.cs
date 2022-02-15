@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float meleeAttackDamage = 20f;
     public Transform startingPoint;
 
-
+    private bool can = true;
 
     public Transform attackPoint;
     public float attackRange = 0.5f;
@@ -148,8 +148,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanMove()
     {
-        bool can = true;
-
         //팝업 창이 떠 있으면 움직일 수 없음
         if (null != FindObjectOfType<PopUp>())
         {
@@ -159,8 +157,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
         return can;
+    }
+
+    //공격 시 움직이지 못하게 함
+    public void disableMove()
+    {
+        can = false;
+        playerRigidbody.velocity = new Vector2(0, 0);
+    }
+
+    //공격 동작 마무리 시 다시 움직일 수 있게 함
+    public void enableMove()
+    {
+        can = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
