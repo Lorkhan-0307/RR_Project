@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float meleeAttackDamage = 20f;
     public Transform startingPoint;
 
-
+    private bool can = true;
 
     public Transform attackPoint;
     public float attackRange = 0.5f;
@@ -44,31 +44,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-
-        // Decrease timer that disables input movement. Used when attacking
-        //m_disableMovementTimer -= Time.deltaTime;
-
-        // Swap dirction and Sprite by move direction
-        /*else
-        {
-            if (playerInput.move > 0)
-            {
-                m_SR.flipX = false;
-                m_facingDirection = 1;
-            }
-            else if (playerInput.move < 0)
-            {
-                m_SR.flipX = true;
-                m_facingDirection = -1;
-            }
-        }
-
-        if (!isRolling && m_disableMovementTimer < 0.0f)
-        {
-            inputX = playerInput.move;
-            Move();
-        }*/
-
         if (playerInput.attack)
         {
             if (!isRolling)
@@ -128,28 +103,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-
-        /*
-        Vector2 moveDistance = new Vector2(playerInput.move, 0) * moveSpeed * Time.fixedDeltaTime;
-        //playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
-        playerRigidbody.position += moveDistance;
-        */
         playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
         animator.SetFloat("Walkspeed", Mathf.Abs(inputX * moveSpeed));
     }
-    /*
-    private void Jump()
-    {
-        Vector2 jumpVelocity = new Vector2(0, jumpPower);
-
-        playerRigidbody.AddForce(jumpVelocity, ForceMode2D.Impulse);
-    }
-    */
 
     private void Attack()
     {
         animator.SetTrigger("attack");
-        m_disableMovementTimer = 0.35f;
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
@@ -188,8 +148,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanMove()
     {
-        bool can = true;
-
         //팝업 창이 떠 있으면 움직일 수 없음
         if (null != FindObjectOfType<PopUp>())
         {
@@ -199,8 +157,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
         return can;
+    }
+
+    //공격 시 움직이지 못하게 함
+    public void disableMove()
+    {
+        can = false;
+        playerRigidbody.velocity = new Vector2(0, 0);
+    }
+
+    //공격 동작 마무리 시 다시 움직일 수 있게 함
+    public void enableMove()
+    {
+        can = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
