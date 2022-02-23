@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
 
     private bool dead;
 
+    public GameOver gameover;
+
     private void Awake()
     {
         currentHealth = startingHealth;
@@ -34,6 +36,10 @@ public class PlayerHealth : MonoBehaviour
 
                 if (GetComponentInParent<PlayerMovement>() != null)
                     GetComponentInParent<PlayerMovement>().enabled = false;
+                
+                gameover.Setup();
+
+
             }
         }
     }
