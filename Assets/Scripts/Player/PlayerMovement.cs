@@ -97,7 +97,10 @@ public class PlayerMovement : MonoBehaviour
                 inputX = playerInput.move;
                 Move();
             }
+          
         }
+
+       
     }
 
     private void Move()
@@ -220,4 +223,63 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+
+    /*
+
+
+    bool onClimbable = false;
+    bool isClimbing = false;
+    float climbPercentage;
+    float ClimbingSpeed = 0.5f;
+    Vector2 vectorStart, vectorEnd; //Starting and Ending Point of the Climbable
+
+    void UseClimbable()
+    {
+        float inputVer = playerInput.jump;
+
+        if (inputVer != 0)
+        {
+            //Climb base on the percentage so we could back and forward based on the inputVer
+            climbPercentage += Time.deltaTime * ClimbingSpeed * inputVer;
+            this.gameObject.transform.position = Vector2.Lerp(vectorStart, vectorEnd, climbPercentage);
+        }
+
+        climbPercentage = Mathf.Clamp01(climbPercentage);
+
+        //if the Player reaches any end he can move again
+        if (climbPercentage == 0 || climbPercentage == 1)
+        {
+            isClimbing = false;
+            //enableMove();
+        }
+        else
+        {
+            isClimbing = true;
+            //disableMove();
+        }
+    }
+
+    //Called to set the Climbable Data
+    public void SetClimbableData(bool onClimbable, Vector2 StartY, Vector2 EndY, bool isDown, float ClimbingSpeed)
+    {
+        this.onClimbable = onClimbable;
+
+        this.vectorStart = StartY;
+        this.vectorEnd = EndY;
+
+        //to Check at what end the Player is
+        if (isDown)
+            climbPercentage = 0;
+        else
+            climbPercentage = 1;
+
+        this.ClimbingSpeed = ClimbingSpeed;
+    }
+    public void OffClimbable()
+    {
+        onClimbable = false;
+    }
+    */
+
 }

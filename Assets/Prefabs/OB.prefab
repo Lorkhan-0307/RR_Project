@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7842056108830093222}
   - component: {fileID: 7842056108830093217}
   - component: {fileID: 7842056108830093216}
+  - component: {fileID: 2614623803529435139}
   - component: {fileID: 3360782269421653676}
   - component: {fileID: 1094345124367889903}
   - component: {fileID: 8373820813367455480}
@@ -169,7 +170,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpPower: 1000
+  rollspeed: 20
+  RollCoolTime: 3
+  animator: {fileID: 0}
+  m_SR: {fileID: 0}
+  meleeAttackDamage: 20
+  startingPoint: {fileID: 0}
+  attackPoint: {fileID: 0}
+  attackRange: 0.5
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   interactIcon: {fileID: 0}
+--- !u!114 &2614623803529435139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842056108830093243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5efd659c418a9498abc3911e4aeb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 7842056108830093220}
 --- !u!95 &3360782269421653676
 Animator:
   serializedVersion: 3
