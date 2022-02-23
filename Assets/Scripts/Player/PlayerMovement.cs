@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject interactIcon;
     private Vector2 boxSize = new Vector2(0.1f, 1f);
 
-    private float m_disableMovementTimer = 0.0f;
     private float inputX = 0.0f;
 
     // Start is called before the first frame update

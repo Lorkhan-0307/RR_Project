@@ -303,6 +303,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74468712}
   m_CullTransparentMesh: 1
+--- !u!1 &120409932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7677999342037140783, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
+  m_PrefabInstance: {fileID: 1333462715642560839}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &120409937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120409932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fd9846083a7c04fb41e5cf276342bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NormalAttackShakeAmount: 0.3
+  ChargeAttackShakeAmount: 0.4
+  ParryAttackShakeAmount: 0.6
+  NormalAttackShakeTime: 0.1
+  ChargeAttackShakeTime: 0.1
+  ParryAttackShakeTime: 0.1
+  ShakeAmount: 0
+  ShakeTime: 0
+  target: {fileID: 699736792}
 --- !u!1 &242599930
 GameObject:
   m_ObjectHideFlags: 0
@@ -15820,6 +15846,10 @@ PrefabInstance:
       propertyPath: boxCollider
       value: 
       objectReference: {fileID: 833621323}
+    - target: {fileID: 3989368269514458174, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
+      propertyPath: camerashake
+      value: 
+      objectReference: {fileID: 120409937}
     - target: {fileID: 3989368269514458174, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
       propertyPath: interactIcon
       value: 
