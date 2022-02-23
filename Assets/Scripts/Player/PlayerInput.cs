@@ -12,21 +12,21 @@ public class PlayerInput : MonoBehaviour
     public const int attackKey = 0;
     //input 함수들
     public float move { get; private set; }
-    public float jump { get; private set; }
+    public bool jump { get; private set; }
     public bool interact { get; private set; }
     public bool roll { get; private set; }
     public bool attack { get; private set; }
 
     void Start()
     {
-        
+
     }
 
     //Update로 Input 읽어들임
     void Update()
     {
         move = Input.GetAxisRaw(moveAxisName);
-        jump = Input.GetAxis(jumpButtonName);
+        jump = Input.GetButtonDown(jumpButtonName);
         interact = Input.GetKeyDown(InteractKey);
         roll = Input.GetKeyDown(rollKey);
         attack = Input.GetMouseButtonDown(attackKey);

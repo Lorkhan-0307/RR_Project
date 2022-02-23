@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
-    private bool isJumping = false;
+    //private bool isGrounded = false; //이 변수 잠시 놔두기(나중에 쓸 것 같음)
     private bool isRolling = false;
     private int m_facingDirection = 1;
     public SpriteRenderer m_SR;
@@ -20,19 +20,20 @@ public class PlayerMovement : MonoBehaviour
     public Transform startingPoint;
 
     private bool can = true;
+    private int jumpCount;
 
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
-
-    public CameraShake camerashake;
-
+    public int amountsOfJump = 3;
 
 
     public GameObject interactIcon;
     private Vector2 boxSize = new Vector2(0.1f, 1f);
 
     private float inputX = 0.0f;
+
+    public CameraShake camerashake;
 
     // Start is called before the first frame update
     void Start()
@@ -44,18 +45,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //공격키를 눌렀을 때
         if (playerInput.attack)
         {
+            //구르고 있지 않다면
             if (!isRolling)
             {
                 Attack();
             }
         }
 
-        //점프 or 구르기 중에는 점프 못함.
-        if (!isJumping && playerInput.jump > 0 && !isRolling)
+        // 점프키를 눌렀을 때 최대 점프 횟수에 도달하지 않았다면 and 구르는 상태가 아니라면
+        if (playerInput.jump && jumpCount < amountsOfJump && !isRolling)
         {
+            jumpCount++;
             Jump();
+            Debug.Log("jumpcount: " + jumpCount);
         }
 
         if (!isRolling && playerInput.roll == true && can == true)
@@ -110,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     private void Attack()
     {
         animator.SetTrigger("attack");
+
         camerashake.GetComponent<CameraShake>().NormalAttackShake();
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -133,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);
-
     }
 
     private void Roll()
@@ -174,22 +179,27 @@ public class PlayerMovement : MonoBehaviour
         can = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        /*
+        //어떤 콜라이더와 닿았을때 "Ground"이면
         if (collision.gameObject.tag == "Ground")
         {
-            isJumping = false;
+            //jumpCount를 0으로 리셋
+            //isGrounded = true;
+            jumpCount = 0;
+        }*/
 
+        if (collision.contacts[0].normal.y > 0.7f)
+        {
+            //isGrounded = true;
+            jumpCount = 0;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isJumping = true;
-
-        }
+        //isGrounded = false;
     }
 
     //상호작용 아이콘 On
