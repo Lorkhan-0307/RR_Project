@@ -7775,7 +7775,7 @@ GameObject:
   - component: {fileID: 1275859025}
   m_Layer: 0
   m_Name: Tilemap Ground
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15757,6 +15757,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3989368269514458170, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 8c24fb74a557c3c47a8f96a8bdb4b135, type: 2}
+    - target: {fileID: 3989368269514458170, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
@@ -15820,6 +15824,10 @@ PrefabInstance:
       propertyPath: interactIcon
       value: 
       objectReference: {fileID: 298368385}
+    - target: {fileID: 3989368269514458174, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
+      propertyPath: amountOfJumps
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3989368269514458174, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
       propertyPath: startingPoint
       value: 
