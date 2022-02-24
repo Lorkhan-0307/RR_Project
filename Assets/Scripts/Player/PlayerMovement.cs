@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
     private bool isGrounded;
+    private bool canJump;
     private bool isTouchingWall;
     private bool isWallSliding;
     private bool isRolling = false;
@@ -25,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     private bool can = true;
     private int jumpCount;
 
+    public Vector2 wallHopDirection;
+    public Vector2 wallJumpDirection;
+
     public Transform attackPoint;
     public Transform groundCheck;
     public Transform wallCheck;
@@ -34,9 +38,11 @@ public class PlayerMovement : MonoBehaviour
     public float wallSlideSpeed;
     public float movementForceInAir;
     public float airDragMultiplier = 0.95f;
+    public float wallHopForce;
+    public float wallJumpForce;
     public LayerMask enemyLayers;
     public LayerMask whatIsGround;
-    public int amountsOfJump = 3;
+    public int maxJumpCount;
 
 
     public GameObject interactIcon;
@@ -52,6 +58,9 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody2D>();
         transform.position = startingPoint.transform.position;
+        wallHopDirection.Normalize();
+        wallJumpDirection.Normalize();
+
     }
 
     private void Update()
@@ -69,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         //점프키를 누르고 구르는 상태가 아닐때
         if(playerInput.jump && !isRolling)
         {
+            /*
             //땅에 닿아있다면
             if (isGrounded)
             {
@@ -78,11 +88,12 @@ public class PlayerMovement : MonoBehaviour
             else
             {   
                 //최대 점프 횟수에 도달하지 않았다면
-                if (jumpCount < amountsOfJump)
+                if (jumpCount < maxJumpCount)
                 {
                     Jump();
                 }
-            }
+            }*/
+            Jump();
         }
 
         if (!isRolling && playerInput.roll == true && can == true)
@@ -96,7 +107,10 @@ public class PlayerMovement : MonoBehaviour
         {
             CheckInteraction();
         }
-
+        //점프할 수 있는지 확인
+        CheckIfCanJump();
+        //WallSlide 중인지 확인
+        CheckIfWallSliding();
     }
     private void FixedUpdate()
     {
@@ -153,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x * airDragMultiplier, playerRigidbody.velocity.y);
         }
 
-        if (isTouchingWall)
+        if (isWallSliding)
         {
             if (playerRigidbody.velocity.y < -wallSlideSpeed)
             {
@@ -190,7 +204,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
     private void Attack()
     {
         animator.SetTrigger("attack");
@@ -222,8 +235,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        jumpCount++;
-        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);
+        /*jumpCount++;
+        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);*/
+
+        if (canJump && !isWallSliding)
+        {
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);
+            jumpCount++;
+        }
+
+        //WallSlide중에 move값 없다면
+        else if(isWallSliding && inputX == 0 && canJump)
+        {
+            isWallSliding = false;
+            jumpCount++;
+            //WallHop방향으로 addforce
+            Vector2 ForceToAdd = new Vector2(wallHopForce * wallHopDirection.x * -m_facingDirection, wallHopForce * wallHopDirection.y);
+            playerRigidbody.AddForce(ForceToAdd, ForceMode2D.Impulse);
+        }
+
+        //move값 있다면
+        else if ((isWallSliding || isTouchingWall) && inputX!=0 && canJump)
+        {
+            isWallSliding = false;
+            jumpCount++;
+            //WallJump방향으로 addforce
+            Vector2 ForceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * inputX, wallJumpForce * wallJumpDirection.y);
+            playerRigidbody.AddForce(ForceToAdd, ForceMode2D.Impulse);
+        }
     }
 
     private void CheckSurroundings()
@@ -231,13 +270,29 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         isTouchingWall = Physics2D.Raycast(wallCheck.position, (m_facingDirection == 1?transform.right:-transform.right), wallCheckDistance, whatIsGround);
+    }
 
-        
+    private void CheckIfCanJump()
+    {
+        if((isGrounded && playerRigidbody.velocity.y <= 0) || isWallSliding)
+        {
+            jumpCount = 0;
+        }
+
+        if (jumpCount >= maxJumpCount)
+        {
+            canJump = false;
+        }
+
+        else
+        {
+            canJump = true;
+        }
     }
 
     private void CheckIfWallSliding()
     {
-        if(isTouchingWall && !isGrounded && playerRigidbody.velocity.y<0)
+        if(isTouchingWall && !isGrounded && playerRigidbody.velocity.y<=0)
         {
             isWallSliding = true;
         }
