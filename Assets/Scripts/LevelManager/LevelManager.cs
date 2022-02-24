@@ -6,12 +6,16 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
 
-    public Transform respawnPoint;
+    public Transform startPoint;
+    public Transform checkPoint;
     public GameObject playerPrefab;
+
+    private Transform respawnPoint;
 
     private void Awake()
     {
         instance = this;
+        respawnPoint = startPoint;
     }
 
     public void Respawn()

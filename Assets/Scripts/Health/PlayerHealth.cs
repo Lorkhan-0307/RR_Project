@@ -20,6 +20,12 @@ public class PlayerHealth : MonoBehaviour
         Healthbar.SetMaxHealth(startingHealth);
     }
 
+    public void HealthRestore(float _heal)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + _heal, 0, startingHealth);
+        Healthbar.SetHealth(currentHealth);
+    }
+
     public void P_TakeDamage(float _damage)
     {
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
