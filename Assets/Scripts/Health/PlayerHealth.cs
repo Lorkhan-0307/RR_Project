@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public Healthbar Healthbar;
 
     private bool dead;
+    public CameraShake camerashake;
 
     public GameOver gameover;
 
@@ -25,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
         Healthbar.SetHealth(currentHealth);
         if (currentHealth > 0)
         {
+            camerashake.NormalAttackShake();
             //animator.SetTrigger("hurt");
         }
         else
