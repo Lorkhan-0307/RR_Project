@@ -10,11 +10,20 @@ public class PlayerHealth : MonoBehaviour
     public Healthbar Healthbar;
 
     private bool dead;
+    public CameraShake camerashake;
+
+    public GameOver gameover;
 
     private void Awake()
     {
         currentHealth = startingHealth;
         Healthbar.SetMaxHealth(startingHealth);
+    }
+
+    public void HealthRestore(float _heal)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + _heal, 0, startingHealth);
+        Healthbar.SetHealth(currentHealth);
     }
 
     public void P_TakeDamage(float _damage)
@@ -23,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         Healthbar.SetHealth(currentHealth);
         if (currentHealth > 0)
         {
+            camerashake.NormalAttackShake();
             //animator.SetTrigger("hurt");
         }
         else
@@ -34,6 +44,10 @@ public class PlayerHealth : MonoBehaviour
 
                 if (GetComponentInParent<PlayerMovement>() != null)
                     GetComponentInParent<PlayerMovement>().enabled = false;
+                
+                gameover.Setup();
+
+
             }
         }
     }

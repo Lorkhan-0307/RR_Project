@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
-    //private bool isGrounded = false; //이 변수 잠시 놔두기(나중에 쓸 것 같음)
+    private bool isGrounded;
+    private bool isTouchingWall;
+    private bool isWallSliding;
     private bool isRolling = false;
     private int m_facingDirection = 1;
     public SpriteRenderer m_SR;
@@ -23,8 +26,16 @@ public class PlayerMovement : MonoBehaviour
     private int jumpCount;
 
     public Transform attackPoint;
+    public Transform groundCheck;
+    public Transform wallCheck;
     public float attackRange = 0.5f;
+    public float groundCheckRadius;
+    public float wallCheckDistance;
+    public float wallSlideSpeed;
+    public float movementForceInAir;
+    public float airDragMultiplier = 0.95f;
     public LayerMask enemyLayers;
+    public LayerMask whatIsGround;
     public int amountsOfJump = 3;
 
 
@@ -55,12 +66,23 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // 점프키를 눌렀을 때 최대 점프 횟수에 도달하지 않았다면 and 구르는 상태가 아니라면
-        if (playerInput.jump && jumpCount < amountsOfJump && !isRolling)
+        //점프키를 누르고 구르는 상태가 아닐때
+        if(playerInput.jump && !isRolling)
         {
-            jumpCount++;
-            Jump();
-            Debug.Log("jumpcount: " + jumpCount);
+            //땅에 닿아있다면
+            if (isGrounded)
+            {
+                jumpCount = 0;
+                Jump();
+            }
+            else
+            {   
+                //최대 점프 횟수에 도달하지 않았다면
+                if (jumpCount < amountsOfJump)
+                {
+                    Jump();
+                }
+            }
         }
 
         if (!isRolling && playerInput.roll == true && can == true)
@@ -104,52 +126,40 @@ public class PlayerMovement : MonoBehaviour
                 Move();
             }
         }
+        CheckSurroundings();
     }
 
     private void Move()
     {
-        playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
-        animator.SetFloat("Walkspeed", Mathf.Abs(inputX * moveSpeed));
-    }
-
-    private void Attack()
-    {
-        animator.SetTrigger("attack");
-
-        camerashake.GetComponent<CameraShake>().NormalAttackShake();
-
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        foreach (Collider2D enemy in hitEnemies)
+        if(isGrounded)
         {
-            enemy.GetComponent<EnemyHealth>().E_TakeDamage(meleeAttackDamage);
+            playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
+            animator.SetFloat("Walkspeed", Mathf.Abs(inputX * moveSpeed));
         }
 
+        else if(!isGrounded && !isWallSliding && inputX != 0)
+        {
+            Vector2 ForceToAdd = new Vector2(inputX * movementForceInAir, 0);
+            playerRigidbody.AddForce(ForceToAdd, ForceMode2D.Impulse);
 
-    }
+            if (Mathf.Abs(playerRigidbody.velocity.x) > moveSpeed)
+            {
+                playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
+            }
+        }
 
-    private void OnDrawGizmos()
-    {
-        if (attackPoint == null)
-            return;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }
+        else if(!isGrounded && !isWallSliding && inputX == 0)
+        {
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x * airDragMultiplier, playerRigidbody.velocity.y);
+        }
 
-
-    private void Jump()
-    {
-        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);
-    }
-
-    private void Roll()
-    {
-        animator.SetTrigger("roll");
-        playerRigidbody.velocity = new Vector2(rollspeed * m_facingDirection, playerRigidbody.velocity.y);
-    }
-
-    public void ResetRoll()
-    {
-        isRolling = false;
+        if (isTouchingWall)
+        {
+            if (playerRigidbody.velocity.y < -wallSlideSpeed)
+            {
+                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, -wallSlideSpeed);
+            }
+        }
     }
 
     private bool CanMove()
@@ -179,39 +189,73 @@ public class PlayerMovement : MonoBehaviour
         can = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        /*
-        //어떤 콜라이더와 닿았을때 "Ground"이면
-        if (collision.gameObject.tag == "Ground")
-        {
-            //jumpCount를 0으로 리셋
-            //isGrounded = true;
-            jumpCount = 0;
-        }*/
 
-        if (collision.contacts[0].normal.y > 0.7f)
+
+    private void Attack()
+    {
+        animator.SetTrigger("attack");
+
+        camerashake.GetComponent<CameraShake>().NormalAttackShake();
+
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
         {
-            //isGrounded = true;
-            jumpCount = 0;
+            enemy.GetComponent<EnemyHealth>().E_TakeDamage(meleeAttackDamage);
+        }
+
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        //공격범위 설정
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        //GroundCheck 범위 설정
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        //WallCheck 범위 설정
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+    }
+
+
+    private void Jump()
+    {
+        jumpCount++;
+        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);
+    }
+
+    private void CheckSurroundings()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
+        isTouchingWall = Physics2D.Raycast(wallCheck.position, (m_facingDirection == 1?transform.right:-transform.right), wallCheckDistance, whatIsGround);
+
+        
+    }
+
+    private void CheckIfWallSliding()
+    {
+        if(isTouchingWall && !isGrounded && playerRigidbody.velocity.y<0)
+        {
+            isWallSliding = true;
+        }
+        else
+        {
+            isWallSliding = false;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void Roll()
     {
-        //isGrounded = false;
+        animator.SetTrigger("roll");
+        playerRigidbody.velocity = new Vector2(rollspeed * m_facingDirection, playerRigidbody.velocity.y);
     }
 
-    //상호작용 아이콘 On
-    public void OpenInteractableIcon()
+    public void ResetRoll()
     {
-        interactIcon.SetActive(true);
-    }
-
-    //상호작용 아이콘 Off
-    public void CloseInteractableIcon()
-    {
-        interactIcon.SetActive(false);
+        isRolling = false;
     }
 
     //충돌체와 상호작용 기능 함수
@@ -232,4 +276,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    //상호작용 아이콘 On
+    public void OpenInteractableIcon()
+    {
+        interactIcon.SetActive(true);
+    }
+
+    //상호작용 아이콘 Off
+    public void CloseInteractableIcon()
+    {
+        interactIcon.SetActive(false);
+    }
+
 }
