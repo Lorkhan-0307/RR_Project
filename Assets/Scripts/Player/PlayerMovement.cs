@@ -10,14 +10,17 @@ public class PlayerMovement : MonoBehaviour
     public float jumpPower = 10f;
     public float rollspeed = 20f;
     public float RollCoolTime = 3f;
+    public float jumpTimer;
     public Animator animator;
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
     private bool isGrounded;
-    private bool canJump;
+    private bool canNormalJump;
+    private bool canWallJump;
     private bool isTouchingWall;
     private bool isWallSliding;
     private bool isRolling = false;
+    private bool isAttemptingToJump;
     private int m_facingDirection = 1;
     public SpriteRenderer m_SR;
     public float meleeAttackDamage = 20f;
@@ -26,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     private bool can = true;
     private int jumpCount;
 
-    public Vector2 wallHopDirection;
     public Vector2 wallJumpDirection;
 
     public Transform attackPoint;
@@ -38,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     public float wallSlideSpeed;
     public float movementForceInAir;
     public float airDragMultiplier = 0.95f;
-    public float wallHopForce;
+    public float jumpTimerSet = 0.15f;
     public float wallJumpForce;
     public LayerMask enemyLayers;
     public LayerMask whatIsGround;
@@ -58,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody2D>();
         transform.position = startingPoint.transform.position;
-        wallHopDirection.Normalize();
         wallJumpDirection.Normalize();
 
     }
@@ -78,22 +79,17 @@ public class PlayerMovement : MonoBehaviour
         //점프키를 누르고 구르는 상태가 아닐때
         if(playerInput.jump && !isRolling)
         {
-            /*
-            //땅에 닿아있다면
-            if (isGrounded)
+            if(isGrounded || (jumpCount < maxJumpCount && !isTouchingWall))
             {
-                jumpCount = 0;
-                Jump();
+                Debug.Log("Normal Jump");
+                NormalJump();
             }
             else
-            {   
-                //최대 점프 횟수에 도달하지 않았다면
-                if (jumpCount < maxJumpCount)
-                {
-                    Jump();
-                }
-            }*/
-            Jump();
+            {
+                Debug.Log("else");
+                jumpTimer = jumpTimerSet;
+                isAttemptingToJump = true;
+            }
         }
 
         if (!isRolling && playerInput.roll == true && can == true)
@@ -111,6 +107,8 @@ public class PlayerMovement : MonoBehaviour
         CheckIfCanJump();
         //WallSlide 중인지 확인
         CheckIfWallSliding();
+        //어떤 점프하는지 확인
+        CheckJump();
     }
     private void FixedUpdate()
     {
@@ -145,30 +143,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if(isGrounded)
+        if (!isGrounded && !isWallSliding && inputX == 0)
+        {
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x * airDragMultiplier, playerRigidbody.velocity.y);
+        }
+
+        else 
         {
             playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
             animator.SetFloat("Walkspeed", Mathf.Abs(inputX * moveSpeed));
         }
 
-        else if(!isGrounded && !isWallSliding && inputX != 0)
-        {
-            Vector2 ForceToAdd = new Vector2(inputX * movementForceInAir, 0);
-            playerRigidbody.AddForce(ForceToAdd, ForceMode2D.Impulse);
-
-            if (Mathf.Abs(playerRigidbody.velocity.x) > moveSpeed)
-            {
-                playerRigidbody.velocity = new Vector2(inputX * moveSpeed, playerRigidbody.velocity.y);
-            }
-        }
-
-        else if(!isGrounded && !isWallSliding && inputX == 0)
-        {
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x * airDragMultiplier, playerRigidbody.velocity.y);
-        }
-
         if (isWallSliding)
         {
+
             if (playerRigidbody.velocity.y < -wallSlideSpeed)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, -wallSlideSpeed);
@@ -233,36 +221,55 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Jump()
+    private void CheckJump()
     {
-        /*jumpCount++;
-        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);*/
+        if(jumpTimer > 0)
+        {
+            if (!isGrounded && isWallSliding && inputX != 0 && inputX != m_facingDirection)
+            {
+                Debug.Log("Wall Jump");
+                WallJump();
+            }
+            else if(isGrounded)
+            {
+                Debug.Log("Normal Jump");
+                NormalJump();
+            }
+        }
 
-        if (canJump && !isWallSliding)
+        if(isAttemptingToJump)
+        {
+            jumpTimer -= Time.deltaTime;
+        }
+    }
+
+    private void NormalJump()
+    {
+        if (canNormalJump)
         {
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpPower);
             jumpCount++;
+            jumpTimer = 0;
+            isAttemptingToJump = false;
         }
+    }
 
-        //WallSlide중에 move값 없다면
-        else if(isWallSliding && inputX == 0 && canJump)
-        {
-            isWallSliding = false;
-            jumpCount++;
-            //WallHop방향으로 addforce
-            Vector2 ForceToAdd = new Vector2(wallHopForce * wallHopDirection.x * -m_facingDirection, wallHopForce * wallHopDirection.y);
-            playerRigidbody.AddForce(ForceToAdd, ForceMode2D.Impulse);
-        }
-
+    private void WallJump()
+    {
         //move값 있다면
-        else if ((isWallSliding || isTouchingWall) && inputX!=0 && canJump)
+        if (canWallJump)
         {
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0.0f);
             isWallSliding = false;
+            jumpCount = 0;
             jumpCount++;
             //WallJump방향으로 addforce
             Vector2 ForceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * inputX, wallJumpForce * wallJumpDirection.y);
             playerRigidbody.AddForce(ForceToAdd, ForceMode2D.Impulse);
+            jumpTimer = 0;
+            isAttemptingToJump = false;
         }
+
     }
 
     private void CheckSurroundings()
@@ -274,25 +281,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckIfCanJump()
     {
-        if((isGrounded && playerRigidbody.velocity.y <= 0) || isWallSliding)
+        if((isGrounded && playerRigidbody.velocity.y <= 0.01f))
         {
             jumpCount = 0;
         }
 
+        if(isTouchingWall)
+        {
+            canWallJump = true;
+        }
+
         if (jumpCount >= maxJumpCount)
         {
-            canJump = false;
+            canNormalJump = false;
         }
 
         else
         {
-            canJump = true;
+            canNormalJump = true;
         }
     }
 
     private void CheckIfWallSliding()
     {
-        if(isTouchingWall && !isGrounded && playerRigidbody.velocity.y<=0)
+        if(isTouchingWall && inputX == m_facingDirection && playerRigidbody.velocity.y < 0)
         {
             isWallSliding = true;
         }
