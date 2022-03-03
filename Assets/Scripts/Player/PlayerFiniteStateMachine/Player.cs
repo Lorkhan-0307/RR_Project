@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         JumpState = new PlayerJumpState(this, stateMachine, playerData, "inAir");
         inAirState = new PlayerInAirState(this, stateMachine, playerData, "inAir");
         LandState = new PlayerLandState(this, stateMachine, playerData, "land");
-        WallClimbState = new PlayerWallClimbState(this, stateMachine, playerData, "wallSlide");
+        WallClimbState = new PlayerWallClimbState(this, stateMachine, playerData, "wallClimb");
         WallGrabState = new PlayerWallGrabState(this, stateMachine, playerData, "wallGrab");
         WallSlideState = new PlayerWallSlideState(this, stateMachine, playerData, "wallSlide");
     }
@@ -119,13 +119,24 @@ public class Player : MonoBehaviour
 
     private void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 
-    private void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
-
+    //private void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+    private void AnimationFinishTrigger()
+    {
+        Debug.Log("AnimationFinished");
+        stateMachine.currentState.AnimationFinishTrigger();
+    }
 
     private void Flip()
     {
         FacingDirection *= -1;
         transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(groundCheck.position, playerData.groundCheckRadius);
+
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + playerData.wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
     #endregion
 

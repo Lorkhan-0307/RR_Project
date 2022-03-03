@@ -6,8 +6,10 @@ public class PlayerGroundedState : PlayerState
 {
     protected int xInput;
 
-    private bool JumpInput;
+    private bool jumpInput;
+    private bool grabInput;
     private bool isGrounded;
+    private bool isTouchingWall;
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -17,6 +19,7 @@ public class PlayerGroundedState : PlayerState
         base.DoChecks();
 
         isGrounded = player.CheckIfGrounded();
+        isTouchingWall = player.CheckIfTouchingWall();
     }
 
     public override void Enter()
@@ -36,17 +39,22 @@ public class PlayerGroundedState : PlayerState
         base.LogicUpdate();
 
         xInput = player.InputHandler.NormInputX;
-        JumpInput = player.InputHandler.JumpInput;
+        jumpInput = player.InputHandler.JumpInput;
+        grabInput = player.InputHandler.GrabInput;
 
-        if (JumpInput && player.JumpState.CanJump())
+        if (jumpInput && player.JumpState.CanJump())
         {
             player.InputHandler.UseJumpInput();
-            stateMachine.ChangeState(player.JumpState);
+            stateMachine.ChangeState(player.JumpState); 
         }
         else if (!isGrounded)
         {
             player.inAirState.StartCoyoteTime();
             stateMachine.ChangeState(player.inAirState);
+        }
+        else if(isTouchingWall && grabInput)
+        {
+            stateMachine.ChangeState(player.WallGrabState);
         }
     }
 
