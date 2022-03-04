@@ -12,6 +12,11 @@ public class PlayerData : ScriptableObject
     public float jumpVelocity = 15f;
     public int amountOfJumps = 1;
 
+    [Header("Jump State")]
+    public float wallJumpVelocity = 15f;
+    public float wallJumpTime = 0.4f;
+    public Vector2 wallJumpAngle = new Vector2(1, 2);
+
     [Header("In Air State")]
     public float coyoteTime = 0.2f;
 
@@ -20,6 +25,10 @@ public class PlayerData : ScriptableObject
 
     [Header("Wall Climb State")]
     public float wallClimbVelocity = 3f;
+
+    [Header("Wall Climb State")]
+    public Vector2 startOffset;
+    public Vector2 stopOffset;
 
     [Header("Check Variables")]
     public float groundCheckRadius = 0.3f;
