@@ -163,9 +163,8 @@ public class Player : MonoBehaviour
     private void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 
     //private void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
-    private void AnimationFinishTrigger()
+    public void AnimationFinishTrigger()
     {
-        Debug.Log("AnimationFinished");
         stateMachine.currentState.AnimationFinishTrigger();
     }
 

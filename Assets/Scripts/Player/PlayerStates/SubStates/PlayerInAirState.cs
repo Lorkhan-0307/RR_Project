@@ -26,6 +26,7 @@ public class PlayerInAirState : PlayerState
     {
         base.DoChecks();
 
+        Debug.Log("do checks");
         oldIsTouchingWall = isTouchingWall;
         oldIsTouchingWallBack = isTouchingWallBack;
 
@@ -70,12 +71,13 @@ public class PlayerInAirState : PlayerState
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
         grabInput = player.InputHandler.GrabInput;
+        isGrounded = player.CheckIfGrounded();
 
         if(isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(player.LandState);
         }
-        else if(isTouchingWall && !isTouchingLedge)
+        else if(isTouchingWall && !isTouchingLedge &&!isGrounded)
         {
             stateMachine.ChangeState(player.LedgeClimbState);
         }
@@ -91,7 +93,7 @@ public class PlayerInAirState : PlayerState
             stateMachine.ChangeState(player.JumpState);
             coyoteTime = false;
         }
-        else if(isTouchingWall && grabInput)
+        else if(isTouchingWall && grabInput && isTouchingLedge)
         {
             stateMachine.ChangeState(player.WallGrabState);
         }
