@@ -24,7 +24,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         RawMovementInput = context.ReadValue<Vector2>();
 
-        if (Mathf.Abs(RawMovementInput.x) > 0.5f)
+        /*if (Mathf.Abs(RawMovementInput.x) > 0.5f)
         {
             NormInputX = (int)(RawMovementInput * Vector2.right).normalized.x;
         }
@@ -35,12 +35,14 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (Mathf.Abs(RawMovementInput.y) > 0.5f)
         {
-            NormInputX = (int)(RawMovementInput * Vector2.up).normalized.y;
+            NormInputY = (int)(RawMovementInput * Vector2.up).normalized.y;
         }
         else
         {
             NormInputY = 0;
-        }
+        }*/
+        NormInputX = Mathf.RoundToInt(RawMovementInput.x);
+        NormInputY = Mathf.RoundToInt(RawMovementInput.y);
     }
 
     public void OnJumpInput(InputAction.CallbackContext context)

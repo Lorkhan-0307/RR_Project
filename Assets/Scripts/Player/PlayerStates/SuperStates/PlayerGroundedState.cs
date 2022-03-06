@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerGroundedState : PlayerState
 {
     protected int xInput;
-
     private bool jumpInput;
     private bool grabInput;
     private bool isGrounded;

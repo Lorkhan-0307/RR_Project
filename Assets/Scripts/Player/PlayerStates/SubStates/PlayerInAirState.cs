@@ -26,7 +26,6 @@ public class PlayerInAirState : PlayerState
     {
         base.DoChecks();
 
-        Debug.Log("do checks");
         oldIsTouchingWall = isTouchingWall;
         oldIsTouchingWallBack = isTouchingWallBack;
 
@@ -73,6 +72,8 @@ public class PlayerInAirState : PlayerState
         grabInput = player.InputHandler.GrabInput;
         isGrounded = player.CheckIfGrounded();
 
+        //Debug.Log($"{isTouchingWall}, {xInput}, {player.FacingDirection}, {player.CurrentVelocity.y}");
+
         if(isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(player.LandState);
@@ -99,7 +100,6 @@ public class PlayerInAirState : PlayerState
         }
         else if(isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
         {
-            Debug.Log("touching wall");
             stateMachine.ChangeState(player.WallSlideState);
         }
         else

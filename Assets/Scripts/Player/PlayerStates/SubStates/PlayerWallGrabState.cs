@@ -47,6 +47,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
         {
             HoldPosition();
 
+            //Debug.Log(yInput);
             if (yInput > 0)
             {
                 stateMachine.ChangeState(player.WallClimbState);
