@@ -73,8 +73,15 @@ public class PlayerInAirState : PlayerState
         isGrounded = player.CheckIfGrounded();
 
         //Debug.Log($"{isTouchingWall}, {xInput}, {player.FacingDirection}, {player.CurrentVelocity.y}");
-
-        if(isGrounded && player.CurrentVelocity.y < 0.01f)
+        if (player.InputHandler.AttackInputs[(int)CombatInputs.melee])
+        {
+            stateMachine.ChangeState(player.MeleeAttackState);
+        }
+        else if (player.InputHandler.AttackInputs[(int)CombatInputs.range])
+        {
+            stateMachine.ChangeState(player.RangeAttackState);
+        }
+        else if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(player.LandState);
         }

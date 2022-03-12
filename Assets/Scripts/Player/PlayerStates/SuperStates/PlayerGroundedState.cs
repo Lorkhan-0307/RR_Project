@@ -43,12 +43,18 @@ public class PlayerGroundedState : PlayerState
         jumpInput = player.InputHandler.JumpInput;
         grabInput = player.InputHandler.GrabInput;
 
-        if (jumpInput && player.JumpState.CanJump())
+        if (player.InputHandler.AttackInputs[(int)CombatInputs.melee])
+        {
+            stateMachine.ChangeState(player.MeleeAttackState);
+        }
+        else if (player.InputHandler.AttackInputs[(int)CombatInputs.range])
+        {
+            stateMachine.ChangeState(player.RangeAttackState);
+        }
+        else if (jumpInput && player.JumpState.CanJump())
         {
             stateMachine.ChangeState(player.JumpState); 
         }
-        //Problem with coyoteJump
-        //Think about this problem in long term.
         else if (!isGrounded)
         {
             player.inAirState.StartCoyoteTime();
