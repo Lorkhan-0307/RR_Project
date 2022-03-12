@@ -8,6 +8,7 @@ public class Engineer : Entity
     public Engineer_MoveState moveState { get; private set; }
     public Engineer_PlayerDetectedState playerDetectedState { get; private set; }
     public Engineer_ChargeState chargeState { get; private set; }
+    public Engineer_LookForPlayerState lookForPlayerState { get; private set; }
 
     [SerializeField]
     private D_IdleState idleStateData;
@@ -17,6 +18,8 @@ public class Engineer : Entity
     private D_PlayerDetected playerDetectedStateData;
     [SerializeField]
     private D_ChargeState chargeStateData;
+    [SerializeField]
+    private D_LookForPlayerState lookForPlayerStateData;
 
     public override void Start()
     {
@@ -26,6 +29,7 @@ public class Engineer : Entity
         idleState = new Engineer_IdleState(this, stateMachine, "idle", idleStateData, this);
         playerDetectedState = new Engineer_PlayerDetectedState(this, stateMachine, "playerDetected",playerDetectedStateData, this);
         chargeState = new Engineer_ChargeState(this, stateMachine, "charge", chargeStateData, this);
+        lookForPlayerState = new Engineer_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
 
         stateMachine.Initialize(moveState);
     }

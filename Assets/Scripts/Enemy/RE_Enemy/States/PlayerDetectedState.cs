@@ -26,6 +26,8 @@ public class PlayerDetectedState : State
     public override void Enter()
     {
         base.Enter();
+        entity.SetVelocity(0f);
+
         performLongRangeAction = false;
 
     }

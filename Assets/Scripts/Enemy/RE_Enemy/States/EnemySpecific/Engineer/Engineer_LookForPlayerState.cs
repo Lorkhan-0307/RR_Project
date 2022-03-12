@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Engineer_MoveState : MoveState
+public class Engineer_LookForPlayerState : LookForPlayerState
 {
     private Engineer engineer;
-
-    public Engineer_MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState statedata, Engineer engineer) : base(entity, stateMachine, animBoolName, statedata)
+    public Engineer_LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_LookForPlayerState stateData, Engineer engineer) : base(entity, stateMachine, animBoolName, stateData)
     {
         this.engineer = engineer;
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
     }
 
     public override void Enter()
@@ -29,11 +33,9 @@ public class Engineer_MoveState : MoveState
         {
             stateMachine.ChangeState(engineer.playerDetectedState);
         }
-        
-        else if(isDetectingWall || !isDetectingLedge)
+        else if (isAllTurnsTimeDone)
         {
-            engineer.idleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(engineer.idleState);
+            stateMachine.ChangeState(engineer.moveState);
         }
     }
 

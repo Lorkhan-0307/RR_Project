@@ -29,13 +29,19 @@ public class Engineer_ChargeState : ChargeState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+
+
         if(isChargeTimeOver)
         {
+            if(!isDetectingLedge || isDetectingWall)
+            {
+                stateMachine.ChangeState(engineer.lookForPlayerState);
+            }
             if(isPlayerInMinAgroRange)
             {
                 stateMachine.ChangeState(engineer.playerDetectedState);
             }
-
         }
     }
 

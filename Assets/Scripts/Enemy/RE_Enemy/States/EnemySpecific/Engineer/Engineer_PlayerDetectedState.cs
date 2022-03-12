@@ -26,10 +26,13 @@ public class Engineer_PlayerDetectedState : PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(!isPlayerInMaxAgroRange)
+        if(performLongRangeAction)
         {
-            engineer.idleState.SetFlipAfterIdle(false);
-            stateMachine.ChangeState(engineer.idleState);
+            stateMachine.ChangeState(engineer.chargeState);
+        }
+        else if(!isPlayerInMaxAgroRange)
+        {
+            stateMachine.ChangeState(engineer.lookForPlayerState);
         }
     }
 
