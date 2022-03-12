@@ -17,12 +17,15 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerLedgeClimbState LedgeClimbState { get; private set; }
+    public PlayerAttackState MeleeAttackState { get; private set; }
+    public PlayerAttackState RangeAttackState { get; private set; }
     #endregion
 
     #region Components
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
+    public PlayerInventory Inventory { get; private set; }
     #endregion
 
     #region Check Transforms
@@ -58,6 +61,8 @@ public class Player : MonoBehaviour
         WallSlideState = new PlayerWallSlideState(this, stateMachine, playerData, "wallSlide");
         WallJumpState = new PlayerWallJumpState(this, stateMachine, playerData, "inAir");
         LedgeClimbState = new PlayerLedgeClimbState(this, stateMachine, playerData, "ledgeClimbState");
+        MeleeAttackState = new PlayerAttackState(this, stateMachine, playerData, "attack");
+        RangeAttackState= new PlayerAttackState(this, stateMachine, playerData, "attack");
     }
 
     private void Start()
@@ -65,7 +70,10 @@ public class Player : MonoBehaviour
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
+        Inventory = GetComponent<PlayerInventory>();
         FacingDirection = 1;
+
+        MeleeAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.melee]);
 
         stateMachine.Initialize(IdleState);
     }
