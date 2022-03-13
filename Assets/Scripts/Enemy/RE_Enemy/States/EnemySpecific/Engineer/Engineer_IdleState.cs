@@ -24,7 +24,13 @@ public class Engineer_IdleState : IdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(isIdleTimeOver)
+
+        if(isPlayerInMinAgroRange)
+        {
+            stateMachine.ChangeState(engineer.playerDetectedState);
+        }
+
+        else if(isIdleTimeOver)
         {
             stateMachine.ChangeState(engineer.moveState);
         }

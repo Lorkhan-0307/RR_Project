@@ -11,8 +11,10 @@ public class PlayerInAirState : PlayerState
     private bool oldIsTouchingWall;
     private bool oldIsTouchingWallBack;
     private bool jumpInput;
+    private bool jumpInputStop;
     private bool grabInput;
     private bool coyoteTime;
+    private bool isJumping;
     private bool wallJumpCoyoteTime;
     private bool isTouchingLedge;
 
@@ -69,8 +71,11 @@ public class PlayerInAirState : PlayerState
 
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
+        jumpInputStop = player.InputHandler.JumpInputStop;
         grabInput = player.InputHandler.GrabInput;
         isGrounded = player.CheckIfGrounded();
+
+        CheckJumpMultiplier();
 
         //Debug.Log($"{isTouchingWall}, {xInput}, {player.FacingDirection}, {player.CurrentVelocity.y}");
         if (player.InputHandler.AttackInputs[(int)CombatInputs.melee])
@@ -125,6 +130,22 @@ public class PlayerInAirState : PlayerState
         base.PhysicsUpdate();
     }
 
+    private void CheckJumpMultiplier()
+    {
+        if (isJumping)
+        {
+            if (jumpInputStop)
+            {
+                player.SetVelocityY(player.CurrentVelocity.y * playerData.variableJumpHeightMultiplier);
+                isJumping = false;
+            }
+            else if (player.CurrentVelocity.y <= 0)
+            {
+                isJumping = false;
+            }
+        }
+    }
+
     private void CheckCoyoteTime()
     {
         if(coyoteTime && Time.time > startTime + playerData.coyoteTime)
@@ -145,6 +166,8 @@ public class PlayerInAirState : PlayerState
 
 
     public void StartCoyoteTime() => coyoteTime = true;
+
+    public void SetIsJumping() => isJumping = true;
 
     public void StartWallJumpCoyoteTime()
     {

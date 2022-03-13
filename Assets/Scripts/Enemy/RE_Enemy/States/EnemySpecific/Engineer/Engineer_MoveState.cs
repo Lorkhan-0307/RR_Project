@@ -24,7 +24,13 @@ public class Engineer_MoveState : MoveState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(isDetectingWall || !isDetectingLedge)
+
+        if(isPlayerInMinAgroRange)
+        {
+            stateMachine.ChangeState(engineer.playerDetectedState);
+        }
+        
+        else if(isDetectingWall || !isDetectingLedge)
         {
             engineer.idleState.SetFlipAfterIdle(true);
             stateMachine.ChangeState(engineer.idleState);
