@@ -26,7 +26,11 @@ public class Engineer_PlayerDetectedState : PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(performLongRangeAction)
+        if(performCloseRangeAction)
+        {
+            stateMachine.ChangeState(engineer.meleeAttackState);
+        }
+        else if(performLongRangeAction)
         {
             stateMachine.ChangeState(engineer.chargeState);
         }
@@ -34,6 +38,7 @@ public class Engineer_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(engineer.lookForPlayerState);
         }
+        
     }
 
     public override void PhysicsUpdate()

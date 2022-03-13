@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Engineer_LookForPlayerState : LookForPlayerState
+public class Engineer_DeadState : DeadState
 {
     private Engineer engineer;
-    public Engineer_LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_LookForPlayerState stateData, Engineer engineer) : base(entity, stateMachine, animBoolName, stateData)
+    public Engineer_DeadState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_DeadState stateData, Engineer engineer) : base(entity, stateMachine, animBoolName, stateData)
     {
         this.engineer = engineer;
     }
@@ -28,15 +28,6 @@ public class Engineer_LookForPlayerState : LookForPlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if(isPlayerInMinAgroRange)
-        {
-            stateMachine.ChangeState(engineer.playerDetectedState);
-        }
-        else if(isAllTurnsTimeDone)
-        {
-            stateMachine.ChangeState(engineer.moveState);
-        }
     }
 
     public override void PhysicsUpdate()

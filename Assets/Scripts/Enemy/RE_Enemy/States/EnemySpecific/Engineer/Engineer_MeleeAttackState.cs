@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Engineer_ChargeState : ChargeState
+public class Engineer_MeleeAttackState : MeleeAttackState
 {
     private Engineer engineer;
+   
 
-    public Engineer_ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState chargeStateData, Engineer engineer) : base(entity, stateMachine, animBoolName, chargeStateData)
+    public Engineer_MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData, Engineer engineer) : base(entity, stateMachine, animBoolName, attackPosition, stateData)
     {
         this.engineer = engineer;
     }
@@ -26,21 +27,16 @@ public class Engineer_ChargeState : ChargeState
         base.Exit();
     }
 
+    public override void FinishAttack()
+    {
+        base.FinishAttack();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (performCloseRangeAction)
-        {
-            stateMachine.ChangeState(engineer.meleeAttackState);
-        }
-
-        else if (!isDetectingLedge || isDetectingWall)
-        {
-            stateMachine.ChangeState(engineer.lookForPlayerState);
-        }
-
-        else if (isChargeTimeOver)
+        if(isAnimationFinished)
         {
             if(isPlayerInMinAgroRange)
             {
@@ -50,13 +46,17 @@ public class Engineer_ChargeState : ChargeState
             {
                 stateMachine.ChangeState(engineer.lookForPlayerState);
             }
+            
         }
-
-        
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
     }
 }

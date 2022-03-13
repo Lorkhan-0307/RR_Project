@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Engineer_ChargeState : ChargeState
+public class Engineer_StunState : StunState
 {
     private Engineer engineer;
-
-    public Engineer_ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState chargeStateData, Engineer engineer) : base(entity, stateMachine, animBoolName, chargeStateData)
+    public Engineer_StunState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_StunState stateData, Engineer engineer) : base(entity, stateMachine, animBoolName, stateData)
     {
         this.engineer = engineer;
     }
@@ -29,30 +28,22 @@ public class Engineer_ChargeState : ChargeState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (performCloseRangeAction)
+        if(isStunTimeOver)
         {
-            stateMachine.ChangeState(engineer.meleeAttackState);
-        }
-
-        else if (!isDetectingLedge || isDetectingWall)
-        {
-            stateMachine.ChangeState(engineer.lookForPlayerState);
-        }
-
-        else if (isChargeTimeOver)
-        {
-            if(isPlayerInMinAgroRange)
+            if(performCloseRangeAction)
             {
-                stateMachine.ChangeState(engineer.playerDetectedState);
+                stateMachine.ChangeState(engineer.meleeAttackState);
+            }
+            else if(isPlayerInMinAgroRange)
+            {
+                stateMachine.ChangeState(engineer.chargeState);
             }
             else
             {
+                engineer.lookForPlayerState.SetTurnImmediately(true);
                 stateMachine.ChangeState(engineer.lookForPlayerState);
             }
         }
-
-        
     }
 
     public override void PhysicsUpdate()
