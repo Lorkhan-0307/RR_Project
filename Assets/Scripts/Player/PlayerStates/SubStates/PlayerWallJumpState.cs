@@ -16,13 +16,8 @@ public class PlayerWallJumpState : PlayerAbilityState
 
         player.InputHandler.UseJumpInput();
         player.JumpState.ResetAmountOfJumpsLeft();
-<<<<<<< Updated upstream
-        player.SetVelocity(playerData.wallJumpVelocity, playerData.wallJumpAngle, wallJumpDirection);
-        player.CheckIfShouldFlip(wallJumpDirection);
-=======
         core.Movement.SetVelocity(playerData.wallJumpVelocity, playerData.wallJumpAngle, wallJumpDirection);
         core.Movement.CheckIfShouldFlip(wallJumpDirection);
->>>>>>> Stashed changes
         player.JumpState.DecreaseAmountOfJumpsLeft();
     }
 
@@ -30,13 +25,8 @@ public class PlayerWallJumpState : PlayerAbilityState
     {
         base.LogicUpdate();
 
-<<<<<<< Updated upstream
-        player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
-        player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
-=======
         player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
         player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
->>>>>>> Stashed changes
 
         if(Time.time >= startTime + playerData.wallJumpTime)
         {
@@ -48,19 +38,11 @@ public class PlayerWallJumpState : PlayerAbilityState
     {
         if (isTouchingWall)
         {
-<<<<<<< Updated upstream
-            wallJumpDirection = -player.FacingDirection;
-        }
-        else
-        {
-            wallJumpDirection = player.FacingDirection;
-=======
             wallJumpDirection = -core.Movement.FacingDirection;
         }
         else
         {
             wallJumpDirection = core.Movement.FacingDirection;
->>>>>>> Stashed changes
         }
     }
 }

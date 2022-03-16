@@ -38,14 +38,11 @@ public class Engineer_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(engineer.lookForPlayerState);
         }
-<<<<<<< Updated upstream
-=======
         else if(!isDetectingLedge)
         {
             entity.Flip();
             stateMachine.ChangeState(engineer.moveState);
         }
->>>>>>> Stashed changes
         
     }
 

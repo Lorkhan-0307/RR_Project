@@ -10,10 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     public int NormInputX { get; private set; }
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
-<<<<<<< Updated upstream
-=======
     public bool JumpInputStop { get; private set; }
->>>>>>> Stashed changes
     public bool GrabInput { get; private set; }
     public bool[] AttackInputs { get; private set; }
 
@@ -72,10 +69,6 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.started)
         {
             JumpInput = true;
-<<<<<<< Updated upstream
-            jumpInputStartTime = Time.time;
-        }
-=======
             JumpInputStop = false;
             jumpInputStartTime = Time.time;
         }
@@ -84,7 +77,6 @@ public class PlayerInputHandler : MonoBehaviour
         {
             JumpInputStop = true;
         }
->>>>>>> Stashed changes
     }
 
     public void OnGrabInput(InputAction.CallbackContext context)

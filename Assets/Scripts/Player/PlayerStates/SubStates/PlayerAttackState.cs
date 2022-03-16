@@ -35,20 +35,12 @@ public class PlayerAttackState : PlayerAbilityState
 
         if (shouldCheckFlip)
         {
-<<<<<<< Updated upstream
-            player.CheckIfShouldFlip(xInput);
-=======
             core.Movement.CheckIfShouldFlip(xInput);
->>>>>>> Stashed changes
         }
 
         if (setVelocity)
         {
-<<<<<<< Updated upstream
-            player.SetVelocityX(velocityToSet * player.FacingDirection);
-=======
             core.Movement.SetVelocityX(velocityToSet * core.Movement.FacingDirection);
->>>>>>> Stashed changes
         }
     }
 
@@ -60,11 +52,7 @@ public class PlayerAttackState : PlayerAbilityState
 
     public void SetPlayerVelocity(float velocity)
     {
-<<<<<<< Updated upstream
-        player.SetVelocityX(velocity * player.FacingDirection);
-=======
         core.Movement.SetVelocityX(velocity * core.Movement.FacingDirection);
->>>>>>> Stashed changes
 
         velocityToSet = velocity;
         setVelocity = true;
