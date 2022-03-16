@@ -18,9 +18,15 @@ public class PlayerGroundedState : PlayerState
     {
         base.DoChecks();
 
+<<<<<<< Updated upstream
         isGrounded = player.CheckIfGrounded();
         isTouchingWall = player.CheckIfTouchingWall();
         isTouchingLedge = player.CheckIfTouchingLedge();
+=======
+        isGrounded = core.CollisionSenses.Ground;
+        isTouchingWall = core.CollisionSenses.WallFront;
+        isTouchingLedge = core.CollisionSenses.Ledge;
+>>>>>>> Stashed changes
     }
 
     public override void Enter()

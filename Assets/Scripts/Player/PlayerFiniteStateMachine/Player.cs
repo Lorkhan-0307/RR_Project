@@ -22,12 +22,17 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Components
+<<<<<<< Updated upstream
+=======
+    public Core Core { get; private set; }
+>>>>>>> Stashed changes
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public PlayerInventory Inventory { get; private set; }
     #endregion
 
+<<<<<<< Updated upstream
     #region Check Transforms
     [SerializeField]
     private Transform groundCheck;
@@ -41,6 +46,10 @@ public class Player : MonoBehaviour
     #region Other Variables
     public Vector2 CurrentVelocity { get; private set; }
     public int FacingDirection { get; private set; }
+=======
+
+    #region Other Variables
+>>>>>>> Stashed changes
 
     [SerializeField]
     private PlayerData playerData;
@@ -50,7 +59,14 @@ public class Player : MonoBehaviour
     #region Unity Callback Functions
     private void Awake()
     {
+<<<<<<< Updated upstream
         stateMachine = new PlayerStateMachine();
+=======
+        Core = GetComponentInChildren<Core>();
+
+        stateMachine = new PlayerStateMachine();
+
+>>>>>>> Stashed changes
         IdleState = new PlayerIdleState(this, stateMachine, playerData, "idle");
         MoveState = new PlayerMoveState(this, stateMachine, playerData, "move");
         JumpState = new PlayerJumpState(this, stateMachine, playerData, "inAir");
@@ -71,7 +87,10 @@ public class Player : MonoBehaviour
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
         Inventory = GetComponent<PlayerInventory>();
+<<<<<<< Updated upstream
         FacingDirection = 1;
+=======
+>>>>>>> Stashed changes
 
         MeleeAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.melee]);
 
@@ -80,7 +99,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< Updated upstream
         CurrentVelocity = RB.velocity;
+=======
+        Core.LogicUpdate();
+>>>>>>> Stashed changes
         stateMachine.currentState.LogicUpdate();
     }
 
@@ -90,6 +113,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+<<<<<<< Updated upstream
     #region Set Functions
     public void SetVelocityZero()
     {
@@ -168,6 +192,9 @@ public class Player : MonoBehaviour
 
         return workspace;
     }
+=======
+    #region Other Functions
+>>>>>>> Stashed changes
     private void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 
     //private void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
@@ -176,6 +203,7 @@ public class Player : MonoBehaviour
         stateMachine.currentState.AnimationFinishTrigger();
     }
 
+<<<<<<< Updated upstream
     private void Flip()
     {
         FacingDirection *= -1;
@@ -188,6 +216,8 @@ public class Player : MonoBehaviour
 
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + playerData.wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
+=======
+>>>>>>> Stashed changes
     #endregion
 
 }

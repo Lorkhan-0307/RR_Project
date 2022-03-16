@@ -14,7 +14,11 @@ public class PlayerWallClimbState : PlayerTouchingWallState
 
         if (!isExitingState)
         {
+<<<<<<< Updated upstream
             player.SetVelocityY(playerData.wallClimbVelocity);
+=======
+            core.Movement.SetVelocityY(playerData.wallClimbVelocity);
+>>>>>>> Stashed changes
 
             if (yInput != 1)
             {

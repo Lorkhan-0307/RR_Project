@@ -16,7 +16,11 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+<<<<<<< Updated upstream
         player.SetVelocityX(0f);
+=======
+        core.Movement.SetVelocityX(0f);
+>>>>>>> Stashed changes
     }
 
     public override void Exit()

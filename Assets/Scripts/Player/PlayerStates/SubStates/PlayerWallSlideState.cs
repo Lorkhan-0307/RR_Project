@@ -14,7 +14,11 @@ public class PlayerWallSlideState : PlayerTouchingWallState
 
         if (!isExitingState)
         {
+<<<<<<< Updated upstream
             player.SetVelocityY(-playerData.wallSlideVelocity);
+=======
+            core.Movement.SetVelocityY(-playerData.wallSlideVelocity);
+>>>>>>> Stashed changes
 
             if (grabInput && yInput == 0)
             {

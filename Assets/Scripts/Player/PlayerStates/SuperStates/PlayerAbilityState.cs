@@ -15,7 +15,11 @@ public class PlayerAbilityState : PlayerState
     {
         base.DoChecks();
 
+<<<<<<< Updated upstream
         isGrounded = player.CheckIfGrounded();
+=======
+        isGrounded = core.CollisionSenses.Ground;
+>>>>>>> Stashed changes
     }
 
     public override void Enter()
@@ -36,7 +40,11 @@ public class PlayerAbilityState : PlayerState
 
         if(isAbilityDone)
         {
+<<<<<<< Updated upstream
             if(isGrounded && player.CurrentVelocity.y < 0.01f)
+=======
+            if(isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
+>>>>>>> Stashed changes
             {
                 stateMachine.ChangeState(player.IdleState);
             }

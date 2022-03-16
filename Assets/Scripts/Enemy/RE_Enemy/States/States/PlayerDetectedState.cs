@@ -10,6 +10,10 @@ public class PlayerDetectedState : State
     protected bool isPlayerInMaxAgroRange;
     protected bool performLongRangeAction;
     protected bool performCloseRangeAction;
+<<<<<<< Updated upstream
+=======
+    protected bool isDetectingLedge;
+>>>>>>> Stashed changes
 
 
     public PlayerDetectedState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetected stateData) : base(entity, stateMachine, animBoolName)
@@ -23,6 +27,10 @@ public class PlayerDetectedState : State
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
         isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAttack();
+<<<<<<< Updated upstream
+=======
+        isDetectingLedge = entity.CheckLedge();
+>>>>>>> Stashed changes
     }
 
     public override void Enter()

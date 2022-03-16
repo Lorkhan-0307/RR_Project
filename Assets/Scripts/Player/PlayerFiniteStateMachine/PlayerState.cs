@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerState 
 {
+<<<<<<< Updated upstream
+=======
+    protected Core core;
+
+>>>>>>> Stashed changes
     protected Player player;
     protected PlayerStateMachine stateMachine;
     protected PlayerData playerData;
@@ -19,6 +24,10 @@ public class PlayerState
         this.stateMachine = stateMachine;
         this.playerData = playerData;
         this.animBoolName = animBoolName;
+<<<<<<< Updated upstream
+=======
+        core = player.Core;
+>>>>>>> Stashed changes
     }
 
     public virtual void Enter()

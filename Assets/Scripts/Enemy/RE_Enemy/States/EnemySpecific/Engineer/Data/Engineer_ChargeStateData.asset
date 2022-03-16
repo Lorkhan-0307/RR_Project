@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: Engineer_ChargeStateData
   m_EditorClassIdentifier: 
   chargeSpeed: 6
+<<<<<<< Updated upstream
   chargeTime: 2
+=======
+  chargeTime: 1
+>>>>>>> Stashed changes

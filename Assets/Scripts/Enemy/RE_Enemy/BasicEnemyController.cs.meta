@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream:Assets/Scripts/Enemy/RE_Enemy/BasicEnemyController.cs.meta
 guid: 6ffed1d3fff2bfb439ff8dc82eab8405
+=======
+guid: 26bd85392cee8a547a92bb97b123b878
+>>>>>>> Stashed changes:Assets/Scripts/AnimationToStateMachine.cs.meta
+=======
+guid: 6ffed1d3fff2bfb439ff8dc82eab8405
+>>>>>>> Stashed changes
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

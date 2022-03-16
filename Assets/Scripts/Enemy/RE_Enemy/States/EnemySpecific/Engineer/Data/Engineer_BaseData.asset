@@ -15,13 +15,21 @@ MonoBehaviour:
   maxHealth: 60
   damageHopSpeed: 3
   wallCheckDistance: 0.2
+<<<<<<< Updated upstream
   ledgeCheckDistance: 0.4
+=======
+  ledgeCheckDistance: 1
+>>>>>>> Stashed changes
   groundCheckRadious: 0.3
   closeRangeActionDistance: 0.7
   minAgroDistance: 3
   maxAgroDistance: 6
   stunResistance: 3
   stunRecoveryTime: 2
+<<<<<<< Updated upstream
+=======
+  hitParticle: {fileID: 0}
+>>>>>>> Stashed changes
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
