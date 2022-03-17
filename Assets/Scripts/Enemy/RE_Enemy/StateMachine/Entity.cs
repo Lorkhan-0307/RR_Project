@@ -48,7 +48,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Update()
     {
-        Debug.Log("Entity Update");
+        
         stateMachine.currentState.LogicUpdate();
 
         if(Time.time >= lastDamageTime + entitydata.stunRecoveryTime)

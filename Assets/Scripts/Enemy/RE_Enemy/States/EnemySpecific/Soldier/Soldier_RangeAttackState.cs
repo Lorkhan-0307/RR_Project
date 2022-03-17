@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeAttack : AttackState
+public class Soldier_RangeAttackState : RangeAttackState
 {
-    protected D_RangeAttack stateData;
-    public RangeAttack(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_RangeAttack stateData) : base(entity, stateMachine, animBoolName, attackPosition)
+    private Soldier soldier;
+    public Soldier_RangeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_RangeAttackState stateData, Soldier soldier) : base(entity, stateMachine, animBoolName, attackPosition, stateData)
     {
-        this.stateData = stateData;
+        this.soldier = soldier;
     }
 
     public override void DoChecks()
