@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 56714485}
   - component: {fileID: 56714484}
   - component: {fileID: 56714483}
+  - component: {fileID: 56714487}
   m_Layer: 11
   m_Name: Alive
   m_TagString: Enemy
@@ -542,6 +543,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &56714487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56714481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26bd85392cee8a547a92bb97b123b878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &59792058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1849,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372713193}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -19247,6 +19260,10 @@ MonoBehaviour:
   groundCheck: {fileID: 1797198372}
   idleStateData: {fileID: 11400000, guid: cb035a68ce9256e4c8577306f2f69589, type: 2}
   moveStateData: {fileID: 11400000, guid: 2776837c5031c12449d95beb377740ed, type: 2}
+  playerDetectedStateData: {fileID: 11400000, guid: 9f93294f9c1f26c4eaa2369b044dbf45, type: 2}
+  dodgeStateData: {fileID: 11400000, guid: 55917f5e18fa73f46876846fcf217947, type: 2}
+  rangeAttackStateData: {fileID: 11400000, guid: ec6e9b2783245da4e81d5e8a70c2d414, type: 2}
+  RangeAttackPosition: {fileID: 349512236}
 --- !u!1 &1872946375
 GameObject:
   m_ObjectHideFlags: 0
