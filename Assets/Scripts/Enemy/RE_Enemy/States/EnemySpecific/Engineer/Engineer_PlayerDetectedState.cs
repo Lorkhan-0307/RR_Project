@@ -38,6 +38,11 @@ public class Engineer_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(engineer.lookForPlayerState);
         }
+        else if(!isDetectingLedge)
+        {
+            entity.Flip();
+            stateMachine.ChangeState(engineer.moveState);
+        }
         
     }
 

@@ -19,8 +19,8 @@ TagManager:
   - BG
   - Enemy
   - Ground
-  - 
-  - 
+  - Damageable
+  - Weapon
   - 
   - 
   - 
