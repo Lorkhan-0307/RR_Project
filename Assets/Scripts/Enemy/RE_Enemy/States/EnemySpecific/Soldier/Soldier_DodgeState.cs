@@ -33,12 +33,10 @@ public class Soldier_DodgeState : DodgeState
         {
             if (!isPlayerInMaxAgroRange)
             {
-                Debug.Log("State to look");
                 stateMachine.ChangeState(soldier.lookForPlayerState);
             }
             else if(isPlayerInMaxAgroRange)
             {
-                Debug.Log("State to detect");
                 stateMachine.ChangeState(soldier.playerDetectedState);
             }
         }

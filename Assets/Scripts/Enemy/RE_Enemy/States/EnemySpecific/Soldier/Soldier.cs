@@ -48,22 +48,14 @@ public class Soldier : Entity
 
 
 
+        
+    }
+
+    public override void Start()
+    {
         stateMachine.Initialize(moveState);
     }
-
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-        if (isDead)
-        {
-            stateMachine.ChangeState(deadState);
-        }
-
-        else if (isStunned && stateMachine.currentState != stunState)
-        {
-            stateMachine.ChangeState(stunState);
-        }
-    }
+    
 
     public override void OnDrawGizmos()
     {

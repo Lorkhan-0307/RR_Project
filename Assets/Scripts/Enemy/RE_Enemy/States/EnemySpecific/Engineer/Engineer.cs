@@ -47,6 +47,11 @@ public class Engineer : Entity
         stunState = new Engineer_StunState(this, stateMachine, "stun", stunStateData, this);
         deadState = new Engineer_DeadState(this, stateMachine, "dead", deadStateData, this);
 
+        
+    }
+
+    public override void Start()
+    {
         stateMachine.Initialize(moveState);
     }
 
@@ -57,19 +62,5 @@ public class Engineer : Entity
         Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
     }
 
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-        if (isDead)
-        {
-            stateMachine.ChangeState(deadState);
-        }
-
-        else if (isStunned && stateMachine.currentState != stunState)
-        {
-            stateMachine.ChangeState(stunState);
-        }
-
-        
-    }
+    
 }

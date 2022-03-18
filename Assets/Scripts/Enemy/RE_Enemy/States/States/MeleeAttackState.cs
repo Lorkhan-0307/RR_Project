@@ -5,8 +5,7 @@ using UnityEngine;
 public class MeleeAttackState : AttackState
 {
     public D_MeleeAttackState stateData;
-    protected AttackDetails attackDetails;
-
+    
     public MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData) : base(entity, stateMachine, animBoolName, attackPosition)
     {
         this.stateData = stateData;
@@ -21,8 +20,7 @@ public class MeleeAttackState : AttackState
     {
         base.Enter();
 
-        attackDetails.damageAmount = stateData.attackDamage;
-        attackDetails.position = entity.transform.position;
+
     }
 
     public override void Exit()
@@ -53,10 +51,19 @@ public class MeleeAttackState : AttackState
 
         foreach(Collider2D collider in detectedObjeccts)
         {
-            //Attack Details is a script which delivers attack details.
-            //Check for lecture part 16 22:00 where attack details is attached on playercombatcontroller, which we don't use right now.
-            //we go like attackDetails.damageAmount = attack1Damage or so on...
-            collider.transform.SendMessage("Damage", attackDetails);
+            IDamageable damageable = collider.GetComponent<IDamageable>();
+
+            if(damageable != null)
+            {
+                damageable.Damage(stateData.attackDamage);
+            }
+
+            IKnockbackable knockbackable = collider.GetComponent<IKnockbackable>();
+
+            if(knockbackable != null)
+            {
+                knockbackable.Knockback(stateData.knockbackAngle, stateData.knockbackStrength, core.Movement.FacingDirection);
+            }
         }
     }
     
