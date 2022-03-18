@@ -18,15 +18,15 @@ public class MoveState : State
     public override void DoChecks()
     {
         base.DoChecks();
-        isDetectingLedge = entity.CheckLedge();
-        isDetectingWall = entity.CheckWall();
+        isDetectingLedge = core.CollisionSenses.LedgeVertical;
+        isDetectingWall = core.CollisionSenses.WallFront;
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()
     {
         base.Enter();
-        entity.SetVelocity(statedata.movementSpeed);
+        core.Movement.SetVelocityX(statedata.movementSpeed * core.Movement.FacingDirection);
 
         
     }

@@ -34,9 +34,9 @@ public class Soldier : Entity
     [SerializeField]
     Transform RangeAttackPosition;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         idleState = new Soldier_IdleState(this, stateMachine, "idle", idleStateData, this);
         moveState = new Soldier_MoveState(this, stateMachine, "move", moveStateData, this);
         playerDetectedState = new Soldier_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedStateData, this);

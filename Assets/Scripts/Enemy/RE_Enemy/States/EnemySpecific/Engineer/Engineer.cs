@@ -34,9 +34,9 @@ public class Engineer : Entity
     [SerializeField]
     Transform meleeAttackPosition;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         moveState = new Engineer_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new Engineer_IdleState(this, stateMachine, "idle", idleStateData, this);

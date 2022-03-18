@@ -16,10 +16,10 @@ MonoBehaviour:
   damageHopSpeed: 3
   wallCheckDistance: 0.2
   ledgeCheckDistance: 0.4
-  groundCheckRadious: 0.3
+  groundCheckRadious: 0.5
   closeRangeActionDistance: 1
   minAgroDistance: 3
-  maxAgroDistance: 4
+  maxAgroDistance: 5
   stunResistance: 3
   stunRecoveryTime: 2
   hitParticle: {fileID: 0}

@@ -30,7 +30,7 @@ public class Soldier_PlayerDetectedState : PlayerDetectedState
         base.LogicUpdate();
         if (!isDetectingLedge)
         {
-            entity.Flip();
+            core.Movement.Flip();
             stateMachine.ChangeState(soldier.moveState);
         }
         else if (performCloseRangeAction && Time.time >= soldier.dodgeState.startTime + soldier.dodgeStateData.dodgeCooldown)

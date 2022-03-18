@@ -40,7 +40,7 @@ public class Engineer_PlayerDetectedState : PlayerDetectedState
         }
         else if(!isDetectingLedge)
         {
-            entity.Flip();
+            core.Movement.Flip();
             stateMachine.ChangeState(engineer.moveState);
         }
         
