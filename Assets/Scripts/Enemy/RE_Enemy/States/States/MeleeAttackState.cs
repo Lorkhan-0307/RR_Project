@@ -62,7 +62,7 @@ public class MeleeAttackState : AttackState
 
             if(knockbackable != null)
             {
-                knockbackable.Knockback(stateData.knockbackAngle, stateData.knockbackStrength, core.Movement.FacingDirection);
+                knockbackable.Knockback(stateData.knockbackAngle, stateData.knockbackStrength, Movement.FacingDirection);
             }
         }
     }

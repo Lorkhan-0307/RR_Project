@@ -12,6 +12,13 @@ public class ChargeState : State
     protected bool isChargeTimeOver;
     protected bool performCloseRangeAction;
 
+    protected CollisionSenses CollisionSenses { get => collisionSenses ?? core.GetCoreComponent(ref collisionSenses); }
+    protected CollisionSenses collisionSenses;
+
+    protected Movement Movement { get => movement ?? core.GetCoreComponent(ref movement); }
+    protected Movement movement;
+
+
     public ChargeState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -21,8 +28,8 @@ public class ChargeState : State
     {
         base.DoChecks();
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
-        isDetectingLedge = core.CollisionSenses.LedgeVertical;
-        isDetectingWall = core.CollisionSenses.WallFront;
+        isDetectingLedge = CollisionSenses.LedgeVertical;
+        isDetectingWall = CollisionSenses.WallFront;
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
     }
 
@@ -31,7 +38,7 @@ public class ChargeState : State
         base.Enter();
 
         isChargeTimeOver = false;
-        core.Movement.SetVelocityX(stateData.chargeSpeed * core.Movement.FacingDirection);
+        Movement?.SetVelocityX(stateData.chargeSpeed * Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -42,7 +49,7 @@ public class ChargeState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        core.Movement.SetVelocityX(stateData.chargeSpeed * core.Movement.FacingDirection);
+        Movement?.SetVelocityX(stateData.chargeSpeed * Movement.FacingDirection);
         if (Time.time >= startTime + stateData.chargeTime)
         {
             isChargeTimeOver = true;

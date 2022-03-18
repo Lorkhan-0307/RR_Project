@@ -7,6 +7,13 @@ public class PlayerAbilityState : PlayerState
     protected bool isAbilityDone;
     private bool isGrounded;
 
+    private CollisionSenses CollisionSenses { get => collisionSenses ?? core.GetCoreComponent(ref collisionSenses); }
+    private CollisionSenses collisionSenses;
+
+    protected Movement Movement { get => movement ?? core.GetCoreComponent(ref movement); }
+    protected Movement movement;
+
+
     public PlayerAbilityState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -15,7 +22,7 @@ public class PlayerAbilityState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded = core.CollisionSenses.Ground;
+        isGrounded = CollisionSenses.Ground;
     }
 
     public override void Enter()
@@ -36,7 +43,7 @@ public class PlayerAbilityState : PlayerState
 
         if(isAbilityDone)
         {
-            if(isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
+            if(isGrounded && Movement.CurrentVelocity.y < 0.01f)
             {
                 stateMachine.ChangeState(player.IdleState);
             }
