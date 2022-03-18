@@ -28,6 +28,20 @@ public class Soldier_DodgeState : DodgeState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (isDodgeOver)
+        {
+            if (!isPlayerInMaxAgroRange)
+            {
+                Debug.Log("State to look");
+                stateMachine.ChangeState(soldier.lookForPlayerState);
+            }
+            else if(isPlayerInMaxAgroRange)
+            {
+                Debug.Log("State to detect");
+                stateMachine.ChangeState(soldier.playerDetectedState);
+            }
+        }
     }
 
     public override void PhysicsUpdate()

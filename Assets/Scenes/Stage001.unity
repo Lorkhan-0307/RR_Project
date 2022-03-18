@@ -19263,6 +19263,7 @@ MonoBehaviour:
   playerDetectedStateData: {fileID: 11400000, guid: 9f93294f9c1f26c4eaa2369b044dbf45, type: 2}
   dodgeStateData: {fileID: 11400000, guid: 55917f5e18fa73f46876846fcf217947, type: 2}
   rangeAttackStateData: {fileID: 11400000, guid: ec6e9b2783245da4e81d5e8a70c2d414, type: 2}
+  lookForPlayerStateData: {fileID: 11400000, guid: 472a4e501ea088245838bff922425933, type: 2}
   RangeAttackPosition: {fileID: 349512236}
 --- !u!1 &1872946375
 GameObject:

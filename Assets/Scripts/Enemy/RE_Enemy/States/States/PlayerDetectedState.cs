@@ -23,7 +23,7 @@ public class PlayerDetectedState : State
         base.DoChecks();
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
         isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
-        performCloseRangeAction = entity.CheckPlayerInCloseRangeAttack();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         isDetectingLedge = entity.CheckLedge();
     }
 

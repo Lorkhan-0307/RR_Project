@@ -23,7 +23,7 @@ public class ChargeState : State
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
         isDetectingLedge = entity.CheckLedge();
         isDetectingWall = entity.CheckWall();
-        performCloseRangeAction = entity.CheckPlayerInCloseRangeAttack();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()

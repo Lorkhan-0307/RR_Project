@@ -97,7 +97,7 @@ public class Entity : MonoBehaviour
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entitydata.maxAgroDistance, entitydata.whatIsPlayer);
     }
 
-    public virtual bool CheckPlayerInCloseRangeAttack()
+    public virtual bool CheckPlayerInCloseRangeAction()
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entitydata.closeRangeActionDistance, entitydata.whatIsPlayer);
     }

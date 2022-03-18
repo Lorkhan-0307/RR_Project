@@ -28,22 +28,22 @@ public class Soldier_PlayerDetectedState : PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(performCloseRangeAction)
-        {
-            stateMachine.ChangeState(soldier.dodgeState);
-        }
-        else if(performLongRangeAction)
-        {
-            stateMachine.ChangeState(soldier.rangeAttackState);
-        }
-        /*else if (!isPlayerInMaxAgroRange)
-        {
-            stateMachine.ChangeState(soldier.lookForPlayerState);
-        }*/
-        else if (!isDetectingLedge)
+        if (!isDetectingLedge)
         {
             entity.Flip();
             stateMachine.ChangeState(soldier.moveState);
+        }
+        else if (performCloseRangeAction && Time.time >= soldier.dodgeState.startTime + soldier.dodgeStateData.dodgeCooldown)
+        {
+            stateMachine.ChangeState(soldier.dodgeState);
+        }
+        else if (isPlayerInMaxAgroRange)
+        {
+            stateMachine.ChangeState(soldier.rangeAttackState);
+        }
+        else if (!isPlayerInMaxAgroRange)
+        {
+            stateMachine.ChangeState(soldier.lookForPlayerState);
         }
     }
 
