@@ -912,7 +912,7 @@ GameObject:
   m_Component:
   - component: {fileID: 140322926}
   - component: {fileID: 140322927}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1973,8 +1973,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1100524185
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 18a93e4f8adb30c48b34959df8927fec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2021,7 +2021,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372713193}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3659,7 +3659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1185333919}
   - component: {fileID: 1185333920}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
