@@ -38,9 +38,5 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-            P_TakeDamage(10);
-    }
+    
 }
