@@ -7,6 +7,12 @@ public class Stats : CoreComponent
     [SerializeField] private float maxHealth;
     private float currentHealth;
 
+<<<<<<< Updated upstream
+=======
+    private Death Death { get => death ?? core.GetCoreComponent(ref death); }
+    private Death death;
+
+>>>>>>> Stashed changes
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -26,6 +32,11 @@ public class Stats : CoreComponent
         {
             currentHealth = 0;
             Debug.Log("!!Current Health is Zero!!");
+<<<<<<< Updated upstream
+=======
+            //Die()
+            Death.Die();
+>>>>>>> Stashed changes
         }
     }
     public void IncreaseHealth(float amount)
@@ -33,4 +44,8 @@ public class Stats : CoreComponent
         currentHealth += Mathf.Clamp(currentHealth + amount, 0, maxHealth);
 
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
