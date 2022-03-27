@@ -7,6 +7,12 @@ public class Stats : CoreComponent
     [SerializeField] private float maxHealth;
     private float currentHealth;
 
+    public Healthbar Healthbar;
+
+
+    private Death Death { get => death ?? core.GetCoreComponent(ref death); }
+    private Death death;
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -16,21 +22,32 @@ public class Stats : CoreComponent
     {
         base.Awake();
         currentHealth = maxHealth;
+
+        if(gameObject.tag == "Player")
+        {
+            Healthbar.SetMaxHealth(maxHealth);
+        }
     }
 
     public void DecreaseHealth(float amount)
     {
         currentHealth -= amount;
-        Debug.Log("Current health is " + currentHealth);
+
         if(currentHealth <= 0)
         {
             currentHealth = 0;
             Debug.Log("!!Current Health is Zero!!");
+            Death.Die();
         }
+
+        Healthbar.SetHealth(currentHealth);
+        Debug.Log("Current health is " + currentHealth);
+
     }
     public void IncreaseHealth(float amount)
     {
         currentHealth += Mathf.Clamp(currentHealth + amount, 0, maxHealth);
 
     }
+
 }

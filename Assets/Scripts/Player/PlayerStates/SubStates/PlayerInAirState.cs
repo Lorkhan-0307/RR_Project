@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInAirState : PlayerState
 {
     private int xInput;
+    //private int yInput;
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isTouchingWallBack;
@@ -76,6 +77,7 @@ public class PlayerInAirState : PlayerState
         CheckWallJumpCoyoteTime();
 
         xInput = player.InputHandler.NormInputX;
+        //yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
         jumpInputStop = player.InputHandler.JumpInputStop;
         grabInput = player.InputHandler.GrabInput;
@@ -83,7 +85,8 @@ public class PlayerInAirState : PlayerState
 
         CheckJumpMultiplier();
 
-        //Debug.Log($"{isTouchingWall}, {xInput}, {Movement.FacingDirection}, {Movement.CurrentVelocity.y}");
+        Debug.Log($"jumpinput: {jumpInput}, isTouchingWall: {isTouchingWall}, isTouchingWallBack: {isTouchingWallBack}, wallJumpCoyoteTime: {wallJumpCoyoteTime}");
+
         if (player.InputHandler.AttackInputs[(int)CombatInputs.melee])
         {
             stateMachine.ChangeState(player.MeleeAttackState);

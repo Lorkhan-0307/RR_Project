@@ -49,14 +49,10 @@ public class AggressiveWeapon : Weapon
 
     public void AddToDetected(Collider2D collision)
     {
-        Debug.Log("AddToDetected");
-
         IDamageable damageable = collision.GetComponent<IDamageable>();
 
         if (damageable != null)
         {
-            Debug.Log("Added!");
-
             detectedDamageables.Add(damageable);
         }
 
@@ -70,14 +66,11 @@ public class AggressiveWeapon : Weapon
 
     public void RemoveFromDetected(Collider2D collision)
     {
-        Debug.Log("RemoveFromDetected");
 
         IDamageable damageable = collision.GetComponent<IDamageable>();
 
         if (damageable != null)
         {
-            Debug.Log("Removed!");
-
             detectedDamageables.Remove(damageable);
         }
         IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();

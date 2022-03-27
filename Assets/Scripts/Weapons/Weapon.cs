@@ -14,12 +14,14 @@ public class Weapon : MonoBehaviour
     protected Core core;
 
     protected int attackCounter;
+    private float resetTime;
+    private float attackTimer = 1.0f;
 
     protected virtual void Awake()
     {
         baseAnimator = transform.Find("Base").GetComponent<Animator>();
         weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
-
+        resetTime = Time.time;
         gameObject.SetActive(false);
     }
 
@@ -27,7 +29,7 @@ public class Weapon : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        if(attackCounter >= weaponData.amountOfAttacks)
+        if(attackCounter >= weaponData.amountOfAttacks || Time.time >= resetTime + attackTimer)
         {
             attackCounter = 0;
         }
@@ -37,6 +39,7 @@ public class Weapon : MonoBehaviour
 
         baseAnimator.SetInteger("attackCounter", attackCounter);
         weaponAnimator.SetInteger("attackCounter", attackCounter);
+        resetTime = Time.time;
     }
 
     public virtual void ExitWeapon()

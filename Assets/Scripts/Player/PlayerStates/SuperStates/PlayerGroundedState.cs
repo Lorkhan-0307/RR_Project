@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerGroundedState : PlayerState
 {
     protected int xInput;
+    private int yInput;
     private bool jumpInput;
     private bool grabInput;
     private bool isGrounded;
@@ -51,6 +52,8 @@ public class PlayerGroundedState : PlayerState
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
         grabInput = player.InputHandler.GrabInput;
+
+        //Debug.Log($"jumpinput: {jumpInput}");
 
         if (player.InputHandler.AttackInputs[(int)CombatInputs.melee])
         {
