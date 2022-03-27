@@ -8,6 +8,7 @@ public class PlayerGroundedState : PlayerState
     private int yInput;
     private bool jumpInput;
     private bool grabInput;
+    private bool dodgeInput;
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isTouchingLedge;
@@ -52,8 +53,9 @@ public class PlayerGroundedState : PlayerState
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
         grabInput = player.InputHandler.GrabInput;
+        dodgeInput = player.InputHandler.DodgeInput;
 
-        //Debug.Log($"jumpinput: {jumpInput}");
+        Debug.Log($"dodgeinput: {dodgeInput}");
 
         if (player.InputHandler.AttackInputs[(int)CombatInputs.melee])
         {
@@ -67,6 +69,11 @@ public class PlayerGroundedState : PlayerState
         {
             stateMachine.ChangeState(player.JumpState); 
         }
+        else if(dodgeInput)
+        {
+            stateMachine.ChangeState(player.DodgeState);
+        }
+
         else if (!isGrounded)
         {
             player.inAirState.StartCoyoteTime();

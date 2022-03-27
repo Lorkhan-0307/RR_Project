@@ -1763,6 +1763,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 50a26311-84b8-42bc-9fdb-2162dcf07a7b
     m_ActionName: GamePlay/FallThrough[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 458365626}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnDodgeInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8b996469-4b98-46ee-9e4e-5ab980be2c0a
+    m_ActionName: GamePlay/Dodge[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: GamePlay

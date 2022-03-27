@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
     public bool JumpInputStop { get; private set; }
+    public bool DodgeInput { get; private set; }
     public bool GrabInput { get; private set; }
     public bool FallThroughInput { get; private set; }
     public bool FallThroughInputStop { get; private set; }
@@ -79,6 +80,19 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.canceled)
         {
             JumpInputStop = true;
+        }
+    }
+
+    public void OnDodgeInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            DodgeInput = true;
+        }
+
+        if (context.canceled)
+        {
+            DodgeInput = false;
         }
     }
 

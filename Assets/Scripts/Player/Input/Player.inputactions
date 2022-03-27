@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Dodge",
+                    "type": "Button",
+                    "id": "8b996469-4b98-46ee-9e4e-5ab980be2c0a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -146,6 +155,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "FallThrough",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bec8c21f-64d8-47d9-bcc0-ec92556be21d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Dodge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
