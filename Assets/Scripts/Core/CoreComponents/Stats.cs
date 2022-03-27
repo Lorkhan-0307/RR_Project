@@ -23,8 +23,14 @@ public class Stats : CoreComponent
         base.Awake();
         currentHealth = maxHealth;
 
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
+            Healthbar.SetMaxHealth(maxHealth);
+        }
+        else if(gameObject.tag == "Boss")
+        {
+            //core.transform.parent.name
+            Healthbar.SetBossName(core.transform.parent.name);
             Healthbar.SetMaxHealth(maxHealth);
         }
     }
@@ -33,21 +39,22 @@ public class Stats : CoreComponent
     {
         currentHealth -= amount;
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             Debug.Log("!!Current Health is Zero!!");
             Death.Die();
         }
-
-        Healthbar.SetHealth(currentHealth);
+        if (gameObject.tag == "Player" || gameObject.tag == "Boss") { Healthbar.SetHealth(currentHealth); }
         Debug.Log("Current health is " + currentHealth);
 
     }
     public void IncreaseHealth(float amount)
     {
         currentHealth += Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-
+        if (gameObject.tag == "Player" || gameObject.tag == "Boss")
+        {
+            Healthbar.SetHealth(currentHealth);
+        }
     }
-
 }
