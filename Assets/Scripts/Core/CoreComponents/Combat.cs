@@ -26,6 +26,15 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable
     {
         Debug.Log(core.transform.parent.name + amount + "Damaged!");
         Stats.DecreaseHealth(amount);
+        if(amount > 15)
+        {
+            CinemachineShake.Instance.ShakeCamera(2f, 0.25f);
+        }
+        else if (amount > 25)
+        {
+            CinemachineShake.Instance.ShakeCamera(4f, 0.25f);
+        }
+
     }
 
     void IKnockbackable.Knockback(Vector2 angle, float strength, int direction)
