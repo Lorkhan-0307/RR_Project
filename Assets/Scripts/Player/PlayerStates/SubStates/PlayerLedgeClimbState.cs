@@ -15,7 +15,7 @@ public class PlayerLedgeClimbState : PlayerState
     private bool jumpInput;
 
     private int xInput;
-    private int yInput;
+    private bool fallInput;
 
     private Movement Movement { get => movement ?? core.GetCoreComponent(ref movement); }
     private Movement movement;
@@ -78,8 +78,10 @@ public class PlayerLedgeClimbState : PlayerState
         else
         {
             xInput = player.InputHandler.NormInputX;
-            yInput = player.InputHandler.NormInputY;
+            fallInput = player.InputHandler.FallThroughInput;
             jumpInput = player.InputHandler.JumpInput;
+
+            //Debug.Log($"{fallInput},{isHanging},{isClimbing}");
 
             Movement?.SetVelocityZero();
             player.transform.position = startPos;
@@ -89,7 +91,7 @@ public class PlayerLedgeClimbState : PlayerState
                 isClimbing = true;
                 player.Anim.SetBool("climbLedge", true);
             }
-            else if (yInput == -1 && isHanging && !isClimbing)
+            else if (fallInput && isHanging && !isClimbing)
             {
                 stateMachine.ChangeState(player.inAirState);
             }

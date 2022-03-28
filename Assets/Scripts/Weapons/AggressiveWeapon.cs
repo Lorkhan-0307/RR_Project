@@ -56,12 +56,6 @@ public class AggressiveWeapon : Weapon
             detectedDamageables.Add(damageable);
         }
 
-<<<<<<< Updated upstream
-            detectedDamageables.Add(damageable);
-        }
-
-=======
->>>>>>> Stashed changes
         IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
 
         if(knockbackable != null)
@@ -81,13 +75,6 @@ public class AggressiveWeapon : Weapon
         }
         IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
 
-<<<<<<< Updated upstream
-            detectedDamageables.Remove(damageable);
-        }
-        IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
-
-=======
->>>>>>> Stashed changes
         if (knockbackable != null)
         {
             detectedKnockbackables.Remove(knockbackable);

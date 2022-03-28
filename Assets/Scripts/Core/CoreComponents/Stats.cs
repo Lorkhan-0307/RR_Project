@@ -7,12 +7,12 @@ public class Stats : CoreComponent
     [SerializeField] private float maxHealth;
     private float currentHealth;
 
-<<<<<<< Updated upstream
-=======
+    public Healthbar Healthbar;
+
+
     private Death Death { get => death ?? core.GetCoreComponent(ref death); }
     private Death death;
 
->>>>>>> Stashed changes
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -22,30 +22,39 @@ public class Stats : CoreComponent
     {
         base.Awake();
         currentHealth = maxHealth;
+
+        if (gameObject.tag == "Player")
+        {
+            Healthbar.SetMaxHealth(maxHealth);
+        }
+        else if(gameObject.tag == "Boss")
+        {
+            //core.transform.parent.name
+            Healthbar.SetBossName(core.transform.parent.name);
+            Healthbar.SetMaxHealth(maxHealth);
+        }
     }
 
     public void DecreaseHealth(float amount)
     {
         currentHealth -= amount;
-        Debug.Log("Current health is " + currentHealth);
-        if(currentHealth <= 0)
+
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             Debug.Log("!!Current Health is Zero!!");
-<<<<<<< Updated upstream
-=======
-            //Die()
             Death.Die();
->>>>>>> Stashed changes
         }
+        if (gameObject.tag == "Player" || gameObject.tag == "Boss") { Healthbar.SetHealth(currentHealth); }
+        Debug.Log("Current health is " + currentHealth);
+
     }
     public void IncreaseHealth(float amount)
     {
         currentHealth += Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-
+        if (gameObject.tag == "Player" || gameObject.tag == "Boss")
+        {
+            Healthbar.SetHealth(currentHealth);
+        }
     }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 }

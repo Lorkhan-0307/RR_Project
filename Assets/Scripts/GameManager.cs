@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject player;
     public bool isGameover { get; private set; }
     public static GameManager instance
     {

@@ -11,12 +11,16 @@ public class PlayerInputHandler : MonoBehaviour
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
     public bool JumpInputStop { get; private set; }
+    public bool DodgeInput { get; private set; }
     public bool GrabInput { get; private set; }
+    public bool FallThroughInput { get; private set; }
+    public bool FallThroughInputStop { get; private set; }
     public bool[] AttackInputs { get; private set; }
 
     [SerializeField]
     private float inputHoldTime = 0.2f;
     private float jumpInputStartTime;
+    private float fallInputStartTime;
 
     private void Start()
     {
@@ -79,15 +83,41 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
+    public void OnDodgeInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            DodgeInput = true;
+        }
+
+        if (context.canceled)
+        {
+            DodgeInput = false;
+        }
+    }
+
     public void OnGrabInput(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             GrabInput = true;
         }
-        if(context.canceled)
+        if (context.canceled)
         {
             GrabInput = false;
+        }
+    }
+
+    public void OnFallThroughInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            FallThroughInput = true;
+            FallThroughInputStop = false;
+        }
+        if (context.canceled)
+        {
+            FallThroughInputStop = true;
         }
     }
 
@@ -95,7 +125,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void CheckJumpInputHoldTime()
     {
-        if(Time.time >= jumpInputStartTime + inputHoldTime)
+        if (Time.time >= jumpInputStartTime + inputHoldTime)
         {
             JumpInput = false;
         }

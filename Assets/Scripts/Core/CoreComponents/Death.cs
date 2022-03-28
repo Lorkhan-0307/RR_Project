@@ -5,25 +5,24 @@ using UnityEngine;
 
 public class Death : CoreComponent
 {
-    public event Action playerOnDeath;
+    //public event Action playerOnDeath;
     //public event Action enemyOnDeath;
-
-    //public LayerMask WhatType { get => whatType; set => whatType = value; }
-    //[SerializeField] private LayerMask whatType;
 
 
     public void Die()
     {
-        if (playerOnDeath != null && gameObject.tag == "Player") //How to distinguish between Player & Enemy?
+        //GameManager에서 EndGame실행되어야만 null 안됨.
+        if (/*playerOnDeath != null && */gameObject.tag == "Player")
         {
-            playerOnDeath();
             Debug.Log("Player Died");
+            //playerOnDeath();
         }
 
-        /*if (enemyOnDeath != null && gameObject.tag == "Enemy")
+        if (/*playerOnDeath != null && */gameObject.tag == "Enemy")
         {
             Debug.Log("Enemy Died");
-            enemyOnDeath();
-        }*/
+            //playerOnDeath();
+        }
+
     }
 }

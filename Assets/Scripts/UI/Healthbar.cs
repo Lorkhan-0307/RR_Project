@@ -9,6 +9,8 @@ public class Healthbar : MonoBehaviour
     public Slider slider;
     public Text healthtext;
     private float maxhealth;
+    public Text bossName;
+
     public void SetMaxHealth(float health)
     {
         slider.maxValue = health;
@@ -23,6 +25,11 @@ public class Healthbar : MonoBehaviour
         slider.value = health;
         maxhealth = slider.maxValue;
         healthtext.text = (health.ToString() + "/" + maxhealth.ToString());
+    }
+
+    public void SetBossName(string name)
+    {
+        bossName.text = name.ToString();
     }
 
 }
