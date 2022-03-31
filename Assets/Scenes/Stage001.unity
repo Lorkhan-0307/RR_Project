@@ -1779,6 +1779,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8b996469-4b98-46ee-9e4e-5ab980be2c0a
     m_ActionName: GamePlay/Dodge[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 458365626}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnEscapeInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1455c406-47dc-4d8d-956e-9ff7893b9783
+    m_ActionName: GamePlay/ESC[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: GamePlay
@@ -19491,7 +19507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7677999342037140779, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.1393209
+      value: 2.13744
       objectReference: {fileID: 0}
     - target: {fileID: 7677999342037140779, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
       propertyPath: m_LocalPosition.y

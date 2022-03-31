@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
+    //input variables
     protected int xInput;
     private int yInput;
     private bool jumpInput;
     private bool grabInput;
     private bool dodgeInput;
+
+    //boolean variables
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isTouchingLedge;
+
+    //Core components
     private CollisionSenses CollisionSenses { get => collisionSenses ?? core.GetCoreComponent(ref collisionSenses); }
     private CollisionSenses collisionSenses;
 
@@ -26,6 +31,7 @@ public class PlayerGroundedState : PlayerState
     public override void DoChecks()
     {
         base.DoChecks();
+        //Check Collisions
         if (CollisionSenses)
         {
             isGrounded = CollisionSenses.Ground;
@@ -37,7 +43,7 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
+        //if grounded, reset amount of jump
         player.JumpState.ResetAmountOfJumpsLeft();
     }
 
@@ -50,12 +56,13 @@ public class PlayerGroundedState : PlayerState
     {
         base.LogicUpdate();
 
+        //input variables
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
         grabInput = player.InputHandler.GrabInput;
         dodgeInput = player.InputHandler.DodgeInput;
 
-        Debug.Log($"dodgeinput: {dodgeInput}");
+        //Debug.Log($"dodgeinput: {dodgeInput}");
 
         if (player.InputHandler.AttackInputs[(int)CombatInputs.melee])
         {

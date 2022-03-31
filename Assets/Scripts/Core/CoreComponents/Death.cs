@@ -15,6 +15,7 @@ public class Death : CoreComponent
         if (/*playerOnDeath != null && */gameObject.tag == "Player")
         {
             Debug.Log("Player Died");
+            FindObjectOfType<GameManager>().EndGame();
             //playerOnDeath();
         }
 

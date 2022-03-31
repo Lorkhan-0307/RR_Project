@@ -16,6 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool FallThroughInput { get; private set; }
     public bool FallThroughInputStop { get; private set; }
     public bool[] AttackInputs { get; private set; }
+    public bool EscapeInput { get; private set; }
 
     [SerializeField]
     private float inputHoldTime = 0.2f;
@@ -118,6 +119,18 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.canceled)
         {
             FallThroughInputStop = true;
+        }
+    }
+
+    public void OnEscapeInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            EscapeInput = true;
+        }
+        if (context.canceled)
+        {
+            EscapeInput = false;
         }
     }
 
