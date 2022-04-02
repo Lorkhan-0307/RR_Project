@@ -5,6 +5,7 @@ using UnityEngine;
 public class InGameState : GameState
 {
     private bool escapeInput;
+    private bool GameIsPaused = false;
 
     public InGameState(Player player, GameManager gameManager, GameStateMachine stateMachine) : base(player, gameManager, stateMachine)
     {
@@ -29,18 +30,41 @@ public class InGameState : GameState
     {
         base.LogicUpdate();
 
-        escapeInput = player.InputHandler.EscapeInput;
-        //Debug.Log(player.InputHandler);
-
         if (gameManager.isGameover)
         {
             stateMachine.ChangeState(gameManager.GameOverState);
         }
 
-        if (escapeInput)
+        //Pause Game
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            stateMachine.ChangeState(gameManager.PauseGameState);
+            if (GameIsPaused)
+            {
+                Resume();
+                Debug.Log("Resume");
+            }
+            else
+            {
+                Pause();
+                Debug.Log("Pause");
+            }
         }
         
     }
+
+
+    #region Pause Fuction
+    private void Resume()
+    {
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+    }
+
+    private void Pause()
+    {
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+
+    #endregion
 }

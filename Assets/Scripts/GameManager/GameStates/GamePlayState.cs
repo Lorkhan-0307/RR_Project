@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GamePlayState : InGameState
 {
+
     public GamePlayState(Player player, GameManager gameManager, GameStateMachine stateMachine) : base(player, gameManager, stateMachine)
     {
     }
@@ -26,5 +27,6 @@ public class GamePlayState : InGameState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
     }
 }

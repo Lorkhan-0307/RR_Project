@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public Player player { get; private set; }
     public GamePlayState GamePlayState { get; private set; }
     public GameOverState GameOverState { get; private set; }
-    public PauseGameState PauseGameState { get; private set; }
     public static GameManager instance
     {
         get
@@ -44,7 +43,6 @@ public class GameManager : MonoBehaviour
 
         GamePlayState = new GamePlayState(player, this, gameStateMachine);
         GameOverState = new GameOverState(player, this, gameStateMachine);
-        PauseGameState = new PauseGameState(player, this, gameStateMachine);
 
     }
 
