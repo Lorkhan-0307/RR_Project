@@ -151,6 +151,8 @@ public class PlayerInAirState : PlayerState
         base.PhysicsUpdate();
     }
 
+    #region Check Fuction
+
     private void CheckJumpMultiplier()
     {
         if (isJumping)
@@ -185,6 +187,9 @@ public class PlayerInAirState : PlayerState
         }
     }
 
+    #endregion
+
+    #region Other Function
 
     public void StartCoyoteTime() => coyoteTime = true;
 
@@ -198,4 +203,5 @@ public class PlayerInAirState : PlayerState
 
     public void StopWallJumpCoyoteTime() => wallJumpCoyoteTime = false;
 
+    #endregion
 }

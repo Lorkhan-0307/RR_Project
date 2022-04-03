@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PlayerLedgeClimbState : PlayerState
 {
+    //Vector 2 variables
     private Vector2 detectedPos;
     private Vector2 cornerPos;
     private Vector2 startPos;
     private Vector2 stopPos;
     private Vector2 workspace;
-
+    //Check variables
     private bool isHanging;
     private bool isClimbing;
+    //Input variables
     private bool jumpInput;
-
     private int xInput;
     private bool fallInput;
 
+    //Core Components
     private Movement Movement { get => movement ?? core.GetCoreComponent(ref movement); }
     private Movement movement;
     private CollisionSenses CollisionSenses { get => collisionSenses ?? core.GetCoreComponent(ref collisionSenses); }
@@ -44,13 +46,16 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.Enter();
 
+        //If ledge climb, set velocity zero
         Movement?.SetVelocityZero();
+        //Reset position to detected Position
         player.transform.position = detectedPos;
         cornerPos = DetermineCornerPosition();
 
         startPos.Set(cornerPos.x - (Movement.FacingDirection * playerData.startOffset.x), cornerPos.y - playerData.startOffset.y);
         stopPos.Set(cornerPos.x + (Movement.FacingDirection * playerData.stopOffset.x), cornerPos.y + playerData.stopOffset.y);
 
+        //Change position to start position
         player.transform.position = startPos;
     }
 
@@ -60,6 +65,7 @@ public class PlayerLedgeClimbState : PlayerState
 
         isHanging = false;
 
+        //if ledge climbing, change position to stop position
         if (isClimbing)
         {
             player.transform.position = stopPos;
@@ -77,6 +83,7 @@ public class PlayerLedgeClimbState : PlayerState
         }
         else
         {
+            //Input variables
             xInput = player.InputHandler.NormInputX;
             fallInput = player.InputHandler.FallThroughInput;
             jumpInput = player.InputHandler.JumpInput;

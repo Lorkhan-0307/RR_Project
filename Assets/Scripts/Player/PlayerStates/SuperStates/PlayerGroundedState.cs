@@ -11,7 +11,7 @@ public class PlayerGroundedState : PlayerState
     private bool grabInput;
     private bool dodgeInput;
 
-    //boolean variables
+    //check variables
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isTouchingLedge;

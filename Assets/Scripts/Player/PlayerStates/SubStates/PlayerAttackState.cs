@@ -46,6 +46,8 @@ public class PlayerAttackState : PlayerAbilityState
         }
     }
 
+    #region Set Fuctions
+
     public void SetWeapon(Weapon weapon)
     {
         this.weapon = weapon;
@@ -64,6 +66,7 @@ public class PlayerAttackState : PlayerAbilityState
     {
         shouldCheckFlip = value;
     }
+    #endregion
 
     #region Animation Triggers
 

@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class PlayerTouchingWallState : PlayerState
 {
-    protected bool isGrounded;
-    protected bool isTouchingWall;
+    //bool input variables
     protected bool grabInput;
     protected bool jumpInput;
     protected int xInput;
     protected int yInput;
+    //bool check variables
+    protected bool isGrounded;
+    protected bool isTouchingWall;
     protected bool isTouchingLedge;
 
+    //Core Components
     private CollisionSenses CollisionSenses { get => collisionSenses ?? core.GetCoreComponent(ref collisionSenses); }
     private CollisionSenses collisionSenses;
 
     protected Movement Movement { get => movement ?? core.GetCoreComponent(ref movement); }
     protected Movement movement;
+
     public PlayerTouchingWallState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -59,11 +63,13 @@ public class PlayerTouchingWallState : PlayerState
     {
         base.LogicUpdate();
 
+        //input variables
         xInput = player.InputHandler.NormInputX;
         yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
         grabInput = player.InputHandler.GrabInput;
 
+        //If jumpinput, determine wall jump direction
         if (jumpInput)
         {
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);

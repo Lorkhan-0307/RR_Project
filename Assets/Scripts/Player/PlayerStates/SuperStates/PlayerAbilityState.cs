@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerAbilityState : PlayerState
 {
+    //Check variables
     protected bool isAbilityDone;
     private bool isGrounded;
 
+    //Core components
     private CollisionSenses CollisionSenses { get => collisionSenses ?? core.GetCoreComponent(ref collisionSenses); }
     private CollisionSenses collisionSenses;
 
