@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public Player player { get; private set; }
     public GamePlayState GamePlayState { get; private set; }
     public GameOverState GameOverState { get; private set; }
+    //game manager 의 역할이 너무 많지 않은지
+    //외부에서 game manager의 변수를 알아야 할 필요가 있나??
+    //game manager state 를 보고 동작을 하는 친구가 있으면 
+
     public static GameManager instance
     {
         get

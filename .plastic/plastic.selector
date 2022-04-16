@@ -1,0 +1,3 @@
+rep "Rusty Redemption@jaekoojaekoo@cloud"
+  path "/"
+    smartbranch "/main"

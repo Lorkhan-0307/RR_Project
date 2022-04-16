@@ -1634,7 +1634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458365623}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.74, y: 2.97, z: 0}
+  m_LocalPosition: {x: 23.29, y: 1.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 565805409}
@@ -1779,22 +1779,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8b996469-4b98-46ee-9e4e-5ab980be2c0a
     m_ActionName: GamePlay/Dodge[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 458365626}
-        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnEscapeInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 1455c406-47dc-4d8d-956e-9ff7893b9783
-    m_ActionName: GamePlay/ESC[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: GamePlay
@@ -2435,6 +2419,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984119912}
   m_CullTransparentMesh: 1
+--- !u!1 &1017185702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 206779404641940721, guid: 912a9137d948f0048bcdebd23689f7a1, type: 3}
+  m_PrefabInstance: {fileID: 6595945201213547113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1037526038
 GameObject:
   m_ObjectHideFlags: 0
@@ -18458,6 +18447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1676008920}
   - component: {fileID: 1676008919}
+  - component: {fileID: 1676008921}
   m_Layer: 7
   m_Name: BossStageTrigger
   m_TagString: Untagged
@@ -18472,7 +18462,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676008918}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -18509,6 +18499,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1676008921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676008918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a561d7f4302984189e7b0e3eded21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  polygonCollider: {fileID: 1676008919}
+  CMvcam: {fileID: 461971166}
+  boss: {fileID: 1017185702}
 --- !u!1 &1781834757
 GameObject:
   m_ObjectHideFlags: 0
@@ -18689,6 +18694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  currentHealth: 0
   Healthbar: {fileID: 1872946377}
 --- !u!1 &1959933850
 GameObject:
@@ -19507,11 +19513,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7677999342037140779, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.13744
+      value: -12.31068
       objectReference: {fileID: 0}
     - target: {fileID: 7677999342037140779, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -26.605297
+      value: -27.965296
       objectReference: {fileID: 0}
     - target: {fileID: 7677999342037140779, guid: 27c2a71b28ef32540ad9a4151cf96803, type: 3}
       propertyPath: m_LocalPosition.z

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stats : CoreComponent
 {
     [SerializeField] private float maxHealth;
-    private float currentHealth;
+    public float currentHealth;
 
     public Healthbar Healthbar;
 
