@@ -11,17 +11,20 @@ public class BossRoomTrigger : MonoBehaviour
     [SerializeField] GameObject CMvcam;
     [SerializeField] GameObject boss;
     [SerializeField] GameObject block;
+    [SerializeField] GameObject bossHealth;
 
     private void Start()
     {
         block.SetActive(false);
         CMvcam.GetComponent<CinemachineConfiner>().enabled = false;
+        bossHealth.SetActive(false);
     }
 
     public void BossRoomEnter()
     {
         CMvcam.GetComponent<CinemachineConfiner>().enabled = true;
         block.SetActive(true);
+        bossHealth.SetActive(true);
     }
 
 
@@ -30,6 +33,7 @@ public class BossRoomTrigger : MonoBehaviour
     {
         CMvcam.GetComponent<CinemachineConfiner>().enabled = false;
         block.SetActive(false);
+        bossHealth.SetActive(false);
     }
 
     private void Update()
