@@ -10,6 +10,21 @@ public class Core : MonoBehaviour
    
     public readonly List<CoreComponent> CoreComponents = new List<CoreComponent>();
 
+    private void Awake()
+    {
+        var comps = GetComponentsInChildren<CoreComponent>();
+
+        foreach (var component in comps)
+        {
+            AddComponent(component);
+        }
+
+        foreach(var component in CoreComponents)
+        {
+            component.Init(this);
+        }
+    }
+
     public void LogicUpdate()
     {
         foreach (CoreComponent component in CoreComponents)

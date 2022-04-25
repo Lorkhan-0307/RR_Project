@@ -18,6 +18,7 @@ public class BossRoomTrigger : MonoBehaviour
         block.SetActive(false);
         CMvcam.GetComponent<CinemachineConfiner>().enabled = false;
         bossHealth.SetActive(false);
+        boss.SetActive(false);
     }
 
     public void BossRoomEnter()
@@ -25,6 +26,9 @@ public class BossRoomTrigger : MonoBehaviour
         CMvcam.GetComponent<CinemachineConfiner>().enabled = true;
         block.SetActive(true);
         bossHealth.SetActive(true);
+        boss.SetActive(true);
+        bossHealth.GetComponent<Healthbar>().SetBossName(boss.name);
+        bossHealth.GetComponent<Healthbar>().SetMaxHealth(boss.GetComponent<Stats>().maxHealth);
     }
 
 
@@ -34,6 +38,7 @@ public class BossRoomTrigger : MonoBehaviour
         CMvcam.GetComponent<CinemachineConfiner>().enabled = false;
         block.SetActive(false);
         bossHealth.SetActive(false);
+        boss.SetActive(false);
     }
 
     private void Update()

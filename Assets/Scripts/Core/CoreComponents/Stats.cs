@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Stats : CoreComponent
 {
-    [SerializeField] private float maxHealth;
+    [SerializeField] public float maxHealth;
     public float currentHealth;
 
     public Healthbar Healthbar;
 
-
-    private Death Death { get => death ?? core.GetCoreComponent(ref death); }
-    private Death death;
+    public event Action HealthZero;
 
     public override void LogicUpdate()
     {
@@ -29,9 +28,6 @@ public class Stats : CoreComponent
         }
         else if(gameObject.tag == "Boss")
         {
-            //core.transform.parent.name
-            Healthbar.SetBossName(core.transform.parent.name);
-            Healthbar.SetMaxHealth(maxHealth);
         }
     }
 
@@ -42,8 +38,8 @@ public class Stats : CoreComponent
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            HealthZero?.Invoke();
             Debug.Log("!!Current Health is Zero!!");
-            Death.Die();
         }
         if (gameObject.tag == "Player" || gameObject.tag == "Boss") { Healthbar.SetHealth(currentHealth); }
         Debug.Log("Current health is " + currentHealth);
