@@ -15,12 +15,12 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable
     private Stats Stats { get => stats ?? core.GetCoreComponent(ref stats); }
     private CollisionSenses CollisionSenses { get => collisionSenses ?? core.GetCoreComponent(ref collisionSenses); }
     private Movement Movement { get => movement ?? core.GetCoreComponent(ref movement); }
-    //private ParticleManager ParticleManager { get => particleManager ?? core.GetCoreComponent(ref particleManager); }
+    private ParticleManager ParticleManager { get => particleManager ?? core.GetCoreComponent(ref particleManager); }
 
     private Stats stats;
     private CollisionSenses collisionSenses;
     private Movement movement;
-    //private ParticleManager particleManager;
+    private ParticleManager particleManager;
 
 
     public override void LogicUpdate()
@@ -31,7 +31,7 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable
     {
         Debug.Log(core.transform.parent.name + amount + "Damaged!");
         Stats?.DecreaseHealth(amount);
-        //ParticleManager?.StartParticlesWithRandomRotation(damageParticles);
+        ParticleManager?.StartParticlesWithRandomRotation(damageParticles);
 
         if(amount > 15)
         {

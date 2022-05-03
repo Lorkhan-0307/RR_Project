@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Core.LogicUpdate();
+        if (PauseMenu.GameIsPaused) return;
         stateMachine.currentState.LogicUpdate();
     }
 

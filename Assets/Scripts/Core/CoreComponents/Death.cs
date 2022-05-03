@@ -8,8 +8,8 @@ public class Death : CoreComponent
 
     [SerializeField] private GameObject[] deathParticles;
 
-    //private ParticleManager ParticleManager { get => particleManager ?? core.GetCoreComponent(ref particleManager); }
-    //private ParticleManager particleManager;
+    private ParticleManager ParticleManager { get => particleManager ?? core.GetCoreComponent(ref particleManager); }
+    private ParticleManager particleManager;
 
     private Stats Stats { get => stats ?? core.GetCoreComponent(ref stats); }
     private Stats stats;
@@ -18,14 +18,18 @@ public class Death : CoreComponent
     {
         base.Init(core);
 
-        Stats.HealthZero += Die;
+        //Stats.HealthZero += Die;
     }
 
+    private void Start()
+    {
+        Stats.HealthZero += Die;
+    }
 
     public void Die()
     {
 
-        //GameManager에서 EndGame실행되어야만 null 안됨.
+        //GameManager???? EndGame???????????? null ????.
         //if (/*playerOnDeath != null && */gameObject.tag == "Player")
         /*{
             Debug.Log("Player Died");
@@ -41,7 +45,7 @@ public class Death : CoreComponent
 
         foreach(var particle in deathParticles)
         {
-            //ParticleManager.StartParticles(particle);
+            ParticleManager.StartParticles(particle);
         }
 
         core.transform.parent.gameObject.SetActive(false);
@@ -49,7 +53,7 @@ public class Death : CoreComponent
 
     private void OnEnable()
     {
-        Stats.HealthZero += Die;
+        //Stats.HealthZero += Die;
     }
 
     private void OnDisable()

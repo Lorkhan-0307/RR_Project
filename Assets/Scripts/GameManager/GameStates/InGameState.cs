@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InGameState : GameState
 {
-    private bool escapeInput;
-    private bool GameIsPaused = false;
+    //private bool escapeInput;
+    //private bool GameIsPaused = false;
 
     public InGameState(Player player, GameManager gameManager, GameStateMachine stateMachine) : base(player, gameManager, stateMachine)
     {
@@ -30,7 +30,7 @@ public class InGameState : GameState
     {
         base.LogicUpdate();
 
-        if (gameManager.isGameover)
+        /*if (gameManager.isGameover)
         {
             stateMachine.ChangeState(gameManager.GameOverState);
         }
@@ -48,13 +48,13 @@ public class InGameState : GameState
                 Pause();
                 Debug.Log("Pause");
             }
-        }
+        }*/
         
     }
 
 
     #region Pause Fuction
-    private void Resume()
+    /*private void Resume()
     {
         Time.timeScale = 1f;
         GameIsPaused = false;
@@ -65,6 +65,6 @@ public class InGameState : GameState
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
-
+    */
     #endregion
 }
